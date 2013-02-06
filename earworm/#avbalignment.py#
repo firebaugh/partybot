@@ -200,13 +200,16 @@ def path_intersect(timbre_paths, pitch_paths):
         paths.append(res)
     return paths
 
+def copy_nodes(graph):
+
+
 ##############################--SMITH-WATERMAN ALGO--################################
 
 ## Label mashup track graph with track A or track B where appropriate
-def label(graph_avb, graph_a, graph_b, verbose):
-    tmp_graph = graph_avb.copy() #used for removing aligned nodes
-    label_graph = graph_avb.copy() #used for labeling
-     
+def label(graph_avb, graph_a, graph_b):
+    tmp_graph = copy_nodes(graph_avb) #used for removing aligned nodes
+    label_graph = deepcopy(graph_avb) #used for labeling
+        
     # Loop that keeps finding local alignments until completely labeled
     while(tmp_graph.size() != 0):
         # Use Smith-Waterman to find best local alignment in tmp_graph
@@ -229,7 +232,7 @@ gap_penalty = -7
 ext_gap_penalty = -1
 ## Calculate score between seq1 and seq2 sites a and b
 def match_score(a, b):
-    if len(a[1].keys()) == 0 or len(b[1].keys()) == 0: #TODO check if empty
+    if len(a[1].keys()) == 0 or len(b[1].keys()) == 0: #TO DO: check if empty
         #print("gap")
         return ext_gap_penalty
     else:
@@ -328,7 +331,7 @@ def water(final, seq1, seq2):
     #traceback, follow pointers
     while pointer[i][j] != 0:
         if pointer[i][j] == 3:
-            align1 += seq1[i-1] #TODO make graphs, nodes should be flagged as gap or not
+            align1 += seq1[i-1] #TO DO: make graphs, nodes should be flagged as gap or not
             align2 += seq2[j-1]
             i -= 1
             j -= 1
@@ -345,11 +348,6 @@ def water(final, seq1, seq2):
 
 
 #####################################--MAIN--#############################################
-
-## Sum Euclidean distance between all three songs, for debugging
-def calc_sum_distance(avb, a, b):
-    
-    return sum_dist
 
 ## Euclidean distance function
 def distance(a, b):
@@ -393,7 +391,6 @@ def analyze(track, options):
     return make_graph(paths, markers, timbre['matrix'], pitch['matrix'])
 
 def main():
-    # Options
     usage = "usage: %s [options] <a_vs_b_mp3> <a_mp3> <b_mp3>" % sys.argv[0]
     parser = OptionParser(usage=usage)
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
@@ -405,12 +402,10 @@ def main():
         parser.print_help()
         return -1
 
-    # Song names
     mp3_avb = split(lower(args[0]), '.mp3')[0]
     mp3_a = split(lower(args[1]), '.mp3')[0]
     mp3_b = split(lower(args[2]), '.mp3')[0]
 
-    # Load audio info from EchoNest
     print("Loading audio files...") #why does this take so frickin long?
     verbose = options.verbose
     plot = options.plot
@@ -418,19 +413,16 @@ def main():
     track_a = LocalAudioFile(args[1], verbose=verbose)
     track_b = LocalAudioFile(args[2], verbose=verbose)
 
-    # Create timbre and pitch graphs of songs
-    print("Analyzing A vs B track:", mp3_avb)
+    print("Analyzing A vs B track...")
     graph_avb = analyze(track_avb, options)
-    print("Analyzing A track", mp3_a)
+    print("Analyzing A track...")
     graph_a = analyze(track_a, options)
-    print("Analyzing B track", mp3_b)
+    print("Analyzing B track...")
     graph_b = analyze(track_b, options)
     print("Finished computing all graphs.")
 
-    calc_sum_distance(graph_avb, graph_a, graph_b)
-    
     print("Labeling A vs B based on feature distance from A or B...")
-    graph_avb_align = label(graph_avb, graph_a, graph_b, verbose)
+    graph_avb_align = label(graph_avb, graph_a, graph_b)
     '''if verbose == True:
         print("Summed distance:",sum(distances), "Max distance:",max(distances), "Min distance:",min(distances))
         print("Average:",average(distances), "Standard deviation:",standardDev(distances))
