@@ -18,13 +18,11 @@ Based on:
 from pyechonest import config
 config.ECHO_NEST_API_KEY = "TTAPZNVYMGG5KQBJI"
 
-from copy import deepcopy
 from optparse import OptionParser
 import numpy as np
 from numpy.matlib import repmat, repeat
 from numpy import sqrt, average
 import operator
-import os
 import sys
 from string import lower, split
 
@@ -203,42 +201,42 @@ def path_intersect(timbre_paths, pitch_paths):
 ##############################--SMITH-WATERMAN ALGO--################################
 
 ## Label mashup track graph with track A or track B where appropriate
-def label(graph_avb, graph_a, graph_b):
-    tmp_graph = deepcopy(graph_avb) #used for removing aligned nodes
-    label_graph = deepcopy(graph_avb) #used for labeling
-        
-    # Loop that keeps finding local alignments until completely labeled
-    while(tmp_graph.size() != 0):
-        # Use Smith-Waterman to find best local alignment in tmp_graph
-        # tmp_a/b contains that nodes that are left to label given the alignment
-        # align_a/b is the labeled graph so far, given the resulting alignment
-        # score_a/b are the scores of the resulting alignments
-        align_a, tmp_a, score_a = water(label_graph, tmp_graph, graph_a)
-        align_b, tmp_b, score_b = water(label_graph, tmp_graph, graph_b)
+def label(graph_avb, graph_a, graph_b, verbose):
+    unlabeled = graph_avb.nodes()
+
+    # Loop until whole graph completely labeled
+    while(len(unlabeled) > 0):
+        # Use Smith-Waterman to find best local alignment
+        # unlabeled_a/b are lists of unalabeled node indexes
+        # label_a/b is segment of graph_avb or lobal alignment
+        # score_a/b are the scores of alignments with song a/b
+        label_a, unlabeled_a, score_a = water(graph_avb, unlabeled, graph_a, 'a')
+        label_b, unlabeled_b, score_b = water(graph_avb, unlabeled, graph_b, 'b')
         # Use best score between tracks A and B
         if score_a > score_b:
-            label_graph, tmp_graph = align_a, tmp_a
+            graph_avb = label_a.to_directed()
+            unlabeled = unlabeled_a
+            if verbose: print("Found song a segment. Remaining:", len(unlabeled))
         else:
-            label_graph, tmp_graph = align_b, tmp_b
+            graph_avb = label_b.to_directed()
+            unlabeled = unlabeled_b
+            if verbose: print("Found song b segment. Remaining:", len(unlabeled))
    
-    return label_graph
+    return graph_avb
 
-match_award = 2
-mismatch_penalty = -7
-gap_penalty = -3
-ext_gap_penalty = -1
+match_award = 3 
+gap_penalty = -5
+#cut_cost = -7
 ## Calculate score between seq1 and seq2 sites a and b
 def match_score(a, b):
-    if a[1] == 0 or b[1] == 0: #TO DO: check if empty
-        return ext_gap_penalty
+    if not a or not b: #TODO how to account for gaps?
+        return gap_penalty
     else:
-        print(a, b)
-        d = distance(a[1]['timbre'], b[1]['timbre']) + distance(a[1]['pitch'], b[1]['pitch'])
-        print(d)
-        if d < 4:
+        d = (distance(a['timbre'], b['timbre']) + distance(a['pitch'], b['pitch'])) / 2.0
+        if d <= 0.001:
             return match_award
         else:
-            return mismatch_penalty
+            return match_award-d #TODO discount dependent on max distance
 
 # zeros() was origianlly from NumPy.
 # This version is implemented by alevchuk 2011-04-10
@@ -250,48 +248,10 @@ def zeros(shape):
             retval[-1].append(0)
     return retval
 
-## Trace-back aligned sequences
-def finalize(align1, align2):
-    align1 = align1[::-1] #reverse sequence 1
-    align2 = align2[::-1] #reverse sequence 2
-    
-    i,j = 0,0
-    
-    #calcuate identity, score and aligned sequeces
-    symbol = ''
-    found = 0
-    score = 0
-    identity = 0
-    for i in range(0,len(align1)):
-        # if two AAs are the same, then output the letter
-        if align1[i] == align2[i]:
-            symbol = symbol + align1[i]
-            identity = identity + 1
-            score += match_score(align1[i], align2[i])
-    
-        # if they are not identical and none of them is gap
-        elif align1[i] != align2[i] and align1[i] != '-' and align2[i] != '-':
-            score += match_score(align1[i], align2[i])
-            symbol += ' '
-            found = 0
-    
-        #if one of them is a gap, output a space
-        elif align1[i] == '-' or align2[i] == '-':
-            symbol += ' '
-            score += gap_penalty
-    
-    identity = float(identity) / len(align1) * 100
-    
-    print 'Identity =', "%3.3f" % identity, 'percent'
-    print 'Score =', score
-    print align1
-    print symbol
-    print align2
-
 ## Smith-Waterman algorithm
-def water(final, seq1, seq2):
-    seq1_nodes, seq2_nodes = seq1.nodes(data=True), seq2.nodes(data=True)
-    m, n = len(seq1_nodes), len(seq2_nodes) # length of two sequences
+## Modified to take care of graph-specific labeling
+def water(final, seq1, seq2, label):
+    m, n = len(seq1), seq2.number_of_nodes() # length of two sequences
 
     # Generate DP table and traceback path pointer matrix
     score = zeros((m+1, n+1)) # the DP table
@@ -301,10 +261,10 @@ def water(final, seq1, seq2):
     # Calculate DP table and mark pointers
     for i in range(1, m + 1):
         for j in range(1, n + 1):
-            score_diagonal = score[i-1][j-1] + match_score(seq1_nodes[i-1], seq2_nodes[j-1])
+            score_diagonal = score[i-1][j-1] + match_score(final.node[seq1[i-1]], seq2.node[j-1])
             score_up = score[i][j-1] + gap_penalty
             score_left = score[i-1][j] + gap_penalty
-            score[i][j] = max(0,score_left, score_up, score_diagonal)
+            score[i][j] = max(0, score_left, score_up, score_diagonal)
             if score[i][j] == 0:
                 pointer[i][j] = 0 # 0 means end of the path
             if score[i][j] == score_left:
@@ -318,32 +278,66 @@ def water(final, seq1, seq2):
                 max_j = j
                 max_score = score[i][j];
     
-    align1, align2 = '', '' # initial sequences
-    
+    align1, align2 = [], []
+
     i,j = max_i,max_j # indices of path starting point
     
     #traceback, follow pointers
     while pointer[i][j] != 0:
         if pointer[i][j] == 3:
-            align1 += seq1[i-1] #TO DO: make graphs, nodes should be flagged as gap or not
-            align2 += seq2[j-1]
+            align1.append(seq1[i-1])
+            align2.append(j-1)
             i -= 1
             j -= 1
         elif pointer[i][j] == 2:
-            align1 += '-'
-            align2 += seq2[j-1]
+            align1.append(seq1[i])
+            align2.append(j-1)
             j -= 1
         elif pointer[i][j] == 1:
-            align1 += seq1[i-1]
-            align2 += '-'
+            align1.append(seq1[i-1])
+            align2.append(j)
             i -= 1
 
-    finalize(align1, align2)
+    #---Labeling specific code---#
 
+    #calculate score and label graph
+    align1 = align1[::-1] #reverse sequence 1
+    align2 = align2[::-1] #reverse sequence 2
+
+    score = 0
+    for i in range(0,len(align1)):
+        if align1[i] == None or align2[i] == None:
+            score += gap_penalty
+        else:
+            score += match_score(final.node[align1[i]], seq2.node[align2[i]])
+        final.node[align1[i]]['label'] = (label, align2[i])
+
+    #remove labeled nodes 
+    seq1 = list(set(seq1)-set(align1))
+
+    return final, seq1, score
 
 #####################################--MAIN--#############################################
 
-## Euclidean distance function
+## Feature distance between original and labeled mashups
+## Returns list of distances between each node
+def final_feature_dist(avb, a, b, l, feature):
+    distances = []
+    avb_nodes, label_nodes = avb.nodes(data=True), l.nodes(data=True)
+    n = min([len(avb_nodes),len(label_nodes)])
+
+    for i in range(n-1):
+        label = label_nodes[i][1]['label'][0]
+        index = label_nodes[i][1]['label'][1]
+        
+        if label == 'a':
+            distances.append(distance(avb_nodes[i][1][feature], a.node[index][feature]))
+        elif label == 'b':
+            distances.append(distance(avb_nodes[i][1][feature], b.node[index][feature]))
+
+    return distances
+
+## Euclidean distance function between two lists
 def distance(a, b):
     dist = 0
     for i in range(min(len(a),len(b))):
@@ -360,13 +354,13 @@ def standardDev(dist_list):
 def analyze(track, options):
     vbs = bool(options.verbose)    
 
-    print("Computing resampled and normalized matrices...")
+    if vbs: print("Computing resampled and normalized matrices...")
     timbre = resample_features(track, rate=RATE, feature='timbre')
     timbre['matrix'] = timbre_whiten(timbre['matrix'])
     pitch = resample_features(track, rate=RATE, feature='pitches')
     # why not whiten pitch matrix?
     
-    print("Computing timbre and pitch paths...")
+    if vbs: print("Computing timbre and pitch paths...")
     # pick a tradeoff between speed and memory size
     if rows(timbre['matrix']) < MAX_SIZE:
         # faster but memory hungry. For euclidean distances only.
@@ -380,47 +374,72 @@ def analyze(track, options):
     # intersection of top timbre and pitch results
     paths = path_intersect(t_paths, p_paths)
     
-    print("Creating graph...")
+    if vbs: print("Creating graph...")
     markers = getattr(track.analysis, timbre['rate'])[timbre['index']:timbre['index']+len(paths)]
     return make_graph(paths, markers, timbre['matrix'], pitch['matrix'])
 
 def main():
+    # Command line options
     usage = "usage: %s [options] <a_vs_b_mp3> <a_mp3> <b_mp3>" % sys.argv[0]
     parser = OptionParser(usage=usage)
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-p", "--plot", action="store_true", help="plot a colored png graph")
-    
-    # Print help
     (options, args) = parser.parse_args()
     if len(args) < 3:
         parser.print_help()
         return -1
 
+    # Song names
     mp3_avb = split(lower(args[0]), '.mp3')[0]
     mp3_a = split(lower(args[1]), '.mp3')[0]
     mp3_b = split(lower(args[2]), '.mp3')[0]
 
-    print("Loading audio files...") #why does this take so frickin long?
+    # Load audio info from EchoNest
+    print("Loading audio files...")
     verbose = options.verbose
     plot = options.plot
     track_avb = LocalAudioFile(args[0], verbose=verbose)
     track_a = LocalAudioFile(args[1], verbose=verbose)
     track_b = LocalAudioFile(args[2], verbose=verbose)
 
-    print("Analyzing A vs B track...")
+    # Create timbre and pitch graphs of songs
+    print("Analyzing A vs B track:", mp3_avb)
     graph_avb = analyze(track_avb, options)
-    print("Analyzing A track...")
+    size_avb = graph_avb.number_of_nodes()
+    graph_avb.remove_node(size_avb-1)
+    print("Analyzing A track", mp3_a)
     graph_a = analyze(track_a, options)
-    print("Analyzing B track...")
+    size_a = graph_a.number_of_nodes()
+    graph_a.remove_node(size_a-1)
+    print("Analyzing B track", mp3_b)
     graph_b = analyze(track_b, options)
+    size_b = graph_b.number_of_nodes()
+    graph_b.remove_node(size_b-1)
     print("Finished computing all graphs.")
 
+    
     print("Labeling A vs B based on feature distance from A or B...")
-    graph_avb_align = label(graph_avb, graph_a, graph_b)
-    '''if verbose == True:
-        print("Summed distance:",sum(distances), "Max distance:",max(distances), "Min distance:",min(distances))
-        print("Average:",average(distances), "Standard deviation:",standardDev(distances))
-        print_screen(graph_avb)'''
+    graph_label = label(graph_avb, graph_a, graph_b, verbose)
+    
+    if verbose == True:
+        print("== LABELED GRAPH ==")
+        print_screen(graph_label)
+
+        pitch_distances = final_feature_dist(graph_avb, graph_a, graph_b, graph_label, 'pitch')
+        timbre_distances = final_feature_dist(graph_avb, graph_a, graph_b, graph_label, 'timbre')
+        print("== PITCH RESULTS ==")
+        print("\tSummed Distance:",sum(pitch_distances))
+        print("\tMax Distance:",max(pitch_distances))
+        print("\tMin Distance:",min(pitch_distances))
+        print("\tAverage Distance:",average(pitch_distances))
+        print("\tStandard Dev:",standardDev(pitch_distances))
+        
+        print("== TIMBRE RESULTS ==")
+        print("\tSummed Distance:",sum(timbre_distances))
+        print("\tMax Distance:",max(timbre_distances))
+        print("\tMin Distance:",min(timbre_distances))
+        print("\tAverage Distance:",average(timbre_distances))
+        print("\tStandard Dev:",standardDev(timbre_distances))
 
     if plot == True:
         print("Plotting labeled A vs B graph...")

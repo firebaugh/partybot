@@ -1,0 +1,41 @@
+== avbalignment.py ==
+
+Created by Caitlyn Clabaugh
+Based on earworm.py
+
+avbalignment.py uses Smith-Waterman sequence alignment to align a given A versus B mashup with its two given source songs. The alignment scoring is based on the distance between each songs timbre and pitch features. All data is stored in a graph described below. Timbre and pitch analysis is taken from earworm.py, which uses the EchoNest Remix API.
+
+GRAPH.nodes(data=True): list of nodes by time
+     NODE: tuple of index and feature dictionary
+        INDEX: integer
+        DICT: key = name of feature, value = any type
+             'timbre': array of 12 float32
+             'pitch': array of 12 float32
+             'label': tuple of string 'a' or 'b' and float32 for song index
+        !!NOTE: Last node in list is EMPTY!!
+ 
+GRAPH.edges(data=True):
+    EDGE:
+
+== Usage ==
+
+Usage: avbalignment.py [options] <mashup.mp3> <source_a.mp3> <source_b.mp3>
+
+Options:
+    -h, --help        show this help message and exits
+    -v, --verbose     show processing and results on screen
+    -p, --plot        output final labeled graph of mashup as png image
+
+== Shell Script ==
+
+!! UNDER CONSTRUCTION !!
+
+To label multiple mashups, create a directory structure described below for your mashups and their respective source songs, then run ./label_script.
+
+== Future Work ==
+
+- Alignment scoring function needs to be more robust. Currently have to tweek values for each mashup instance to get best results.
+- Slow processing of timbre and pitch features. Only do this once by writing graph info out to file and reading it in if processing same mp3.
+- Output reconstructed mp3
+
+
