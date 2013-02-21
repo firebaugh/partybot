@@ -126,7 +126,7 @@ def save_plot(graph, track_a, track_b, name="graph.png"):
     A.draw(name)
     return DG
 
-## Prints track graph out to screen
+## Prints track graph and data out to screen
 def print_screen(graph):
     for n,d in graph.nodes_iter(data=True):
         print(n,d)
@@ -224,7 +224,7 @@ def label(graph_avb, graph_a, graph_b, verbose):
    
     return graph_avb
 
-match_award = 3 
+match_award = 5 
 gap_penalty = -5
 #cut_cost = -7
 ## Calculate score between seq1 and seq2 sites a and b
@@ -351,8 +351,12 @@ def standardDev(dist_list):
     return sqrt(sum(mean_sq_dist)/len(dist_list))
     
 ## Do all timbre and pitch analysis of single track
-def analyze(track, options):
+def analyze(trackname, options):
     vbs = bool(options.verbose)    
+    
+    # Load audio info from EchoNest
+    print("Loading %s audio files..." % trackname)
+    track = LocalAudioFile(trackname, verbose=vbs)
 
     if vbs: print("Computing resampled and normalized matrices...")
     timbre = resample_features(track, rate=RATE, feature='timbre')
@@ -376,7 +380,30 @@ def analyze(track, options):
     
     if vbs: print("Creating graph...")
     markers = getattr(track.analysis, timbre['rate'])[timbre['index']:timbre['index']+len(paths)]
-    return make_graph(paths, markers, timbre['matrix'], pitch['matrix'])
+    graph = make_graph(paths, markers, timbre['matrix'], pitch['matrix'])
+    
+    # remove last node because empty?
+    size = graph.number_of_nodes()
+    graph.remove_node(size-1)
+        
+    return graph
+
+def read_graph(filename):
+    try:
+        # Check for pre-existing avb graph
+        print("Probing for pre-exisiting graph...")
+        f = open(filename, "r")
+        f.close()
+        print("Using pre-exisiting graph %s." % filename)
+    except:
+        # If no pre-existing graph
+        return False
+        
+def write_graph(graph, outfile, options):
+    print("Writing A vs B graph out to %s..." % outfile)
+    f = open(outfile, "w")
+     
+    f.close()
 
 def main():
     # Command line options
@@ -384,40 +411,80 @@ def main():
     parser = OptionParser(usage=usage)
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-p", "--plot", action="store_true", help="plot a colored png graph")
+    parser.add_option("-r", "--recompute", action="store_true", help="force recompute graph")
     (options, args) = parser.parse_args()
     if len(args) < 3:
         parser.print_help()
         return -1
+    plot = options.plot
+    verbose = options.verbose
+    recompute = options.recompute
 
     # Song names
     mp3_avb = split(lower(args[0]), '.mp3')[0]
     mp3_a = split(lower(args[1]), '.mp3')[0]
     mp3_b = split(lower(args[2]), '.mp3')[0]
 
-    # Load audio info from EchoNest
-    print("Loading audio files...")
-    verbose = options.verbose
-    plot = options.plot
-    track_avb = LocalAudioFile(args[0], verbose=verbose)
-    track_a = LocalAudioFile(args[1], verbose=verbose)
-    track_b = LocalAudioFile(args[2], verbose=verbose)
-
-    # Create timbre and pitch graphs of songs
-    print("Analyzing A vs B track:", mp3_avb)
-    graph_avb = analyze(track_avb, options)
-    size_avb = graph_avb.number_of_nodes()
-    graph_avb.remove_node(size_avb-1)
-    print("Analyzing A track", mp3_a)
-    graph_a = analyze(track_a, options)
-    size_a = graph_a.number_of_nodes()
-    graph_a.remove_node(size_a-1)
-    print("Analyzing B track", mp3_b)
-    graph_b = analyze(track_b, options)
-    size_b = graph_b.number_of_nodes()
-    graph_b.remove_node(size_b-1)
+    '''
+    FEATURE EXTRACTION
+    ------------------
+    Use Echo Nest or pre-existing *-graph.txt to graph musical events
+    Each node has two 12 vectors for timbre and pitch features
+    '''
+    # A VS B GRAPH
+    mp3_avb_graph = mp3_avb+".graph"
+    # Check for pre-existing avb graph
+    print("Probing for pre-exisiting graph for track %s..." % mp3_avb)    
+    graph_avb = read_graph(mp3_avb_graph)
+    if graph_avb == False:
+        print("No existing graph file found.")
+        graph_avb = analyze(args[0], options)
+        write_graph(graph_avb, mp3_avb_graph, options)
+    elif recompute == True:
+        print("Force recomputing graph...")
+        graph_avb = analyze(args[0], options)
+    else:
+        print("Using pre-exisiting graph %s." % mp3_avb_graph)
+        graph_avb = read_graph(mp3_avb_graph)
+    # A GRAPH
+    mp3_a_graph = mp3_a+".graph"
+    # Check for pre-existing a graph
+    print("Probing for pre-exisiting graph for track %s..." % mp3_a)    
+    graph_a = read_graph(mp3_a_graph)
+    if graph_a == False:
+        print("No existing graph file found.")
+        graph_a = analyze(args[1], options)
+        write_graph(graph_a, mp3_a_graph, options)
+    elif recompute == True:
+        print("Force recomputing graph...")
+        graph_a = analyze(args[1], options)
+    else:
+        print("Using pre-exisiting graph %s." % mp3_a_graph)
+        graph_a = read_graph(mp3_a_graph)
+    # B GRAPH
+    mp3_b_graph = mp3_b+".graph"
+    # Check for pre-existing b graph
+    print("Probing for pre-exisiting graph for track %s..." % mp3_b)    
+    graph_b = read_graph(mp3_b_graph)
+    if graph_b == False:
+        print("No existing graph file found.")
+        graph_b = analyze(args[2], options)
+        write_graph(graph_b, mp3_b_graph, options)
+    elif recompute == True:
+        print("Force recomputing graph...")
+        graph_b = analyze(args[2], options)
+    else:
+        print("Using pre-exisiting graph %s." % mp3_b_graph)
+        graph_b = read_graph(mp3_b_graph)
     print("Finished computing all graphs.")
+   
 
-    
+    '''
+    LABELLING MASHUP
+    Use sequence alignment to create a labeled mashup graph
+    Each mashup event will be labeled with its corresponding event
+    in either track A or track B
+    '''
     print("Labeling A vs B based on feature distance from A or B...")
     graph_label = label(graph_avb, graph_a, graph_b, verbose)
     
@@ -444,7 +511,7 @@ def main():
     if plot == True:
         print("Plotting labeled A vs B graph...")
         sorted_graph = save_plot(graph_avb, mp3_a, mp3_b, mp3_avb+".graph.png")
-
+    
     print("Completed.")
     return 1
 
