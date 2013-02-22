@@ -40,7 +40,7 @@ Get the source, unzip it, cd to the directory it is in and run:
 """
     sys.exit(1)
 
-from echonest.action import Playback, Jump, Fadeout, render, display_actions
+from echonest.action import Playback, Jump, Crossfade, render, display_actions
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
 from alignment_support import align
@@ -57,7 +57,7 @@ class Mashup:
         recompute = force recompute graphs for tracks
         verbose = print results on screen
     '''
-    def __init__(self, mashup_filename, source_filenames, recompute = False, verbose = False):
+    def __init__(self, mashup_filename, source_filenames, recompute=False, verbose=False):
         
         self.mashup = Song(mashup_filename, recompute, verbose)
         self.sources = [Song(s, recompute, verbose) for s in source_filenames]
@@ -68,7 +68,7 @@ class Mashup:
         "SA" = sequence alignment
         "GA" = genetic algorithm
     '''
-    def label(self, algorithm = "GA", verbose = False):
+    def label(self, algorithm="GA", verbose=False):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
             self.labeled = align(self, verbose)
@@ -89,15 +89,20 @@ class Mashup:
     '''
     Render reconstruction of mashup using labeled segments of sources
     '''
-    def reconstruct(self, mp3_filename):
+    def reconstruct(self, verbose=False):
         # Check that we have loaded track from Echo Nest
-        if self.track == None:
-            self.load_track(True)
+        # Create source dictionary
+        source_dict = {}
+        if self.mashup.track == None: self.mashup.load_track(verbose)
+        for s in self.sources:
+            if s.track == None:
+                s.load_track(verbose)
+            source_dict[s.mp3_name] = s.track
 
-        # NOTE to shorten/lengthen refer to compute_path() in earworm.py
-        # renders full length of song
-        actions = [Playback(self.track, min(self.graph.nodes()), max(self.graph.nodes()))]
-        render(actions, mp3_filename) 
+        actions = get_actions(self.labeled, source_dict, verbose)
+        
+        filename = self.mashup.mp3_name+"-reconstructed.mp3"
+        render(actions, filename)
        
     '''
     Print mashup, sources, and labeled mashup to screen
@@ -120,8 +125,9 @@ def main():
     usage = "usage: %s [options] <path_to_mashup> [<path_to_source1> <path_to_source2> ...]" % sys.argv[0]
     parser = OptionParser(usage=usage)
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
-    parser.add_option("-r", "--recompute", action="store_true", help="force recompute graph")
+    parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
     parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGORITHM", metavar="ALGO")
+    parser.add_option("-r", "--render", action="store_true", help="reconstruct mashup using source songs")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         print("Enter mashup and source song(s).\n")
@@ -132,15 +138,64 @@ def main():
         parser.print_help()
         return -1
 
-    recompute = options.recompute
+    recompute = options.force
     verbose = options.verbose
     labeling = options.algorithm
+    render = options.render
     
     mashup = Mashup(args[0], args[1:], recompute, verbose)
     
     if labeling: mashup.label(labeling, verbose)
+    if render:
+        if labeling:
+            mashup.reconstruct(verbose)
+        else:
+            print("Enter labeling option to use render option.")
+            parser.print_help()
+            return -1
 
     return 1
+
+###############################--HELPER FUNCTIONS--##################################
+
+'''
+Creates list of Echo Nest actions to reconstruct mashup using source songs
+    labeled_mashup = graph for mashup with source labels
+    sources = dictionary of source song graphs
+                sources['mp3_name'] = track
+'''
+def get_actions(labeled_mashup, sources, verbose=False):
+    # TODO remove single transitions for better quality
+    # ie in 92 93 94 100 96 97 remove 100
+    
+    actions = []
+
+    curr_song = labeled_mashup.node[0]['label'][0]
+    curr_start = labeled_mashup.node[0]['label'][1]
+    curr_beat = labeled_mashup.node[0]['label'][1]-1
+    for n,d in labeled_mashup.nodes_iter(data=True):
+        print(n,d)
+        # same song
+        if curr_song == d['label'][0]:
+            print("same songs %s and %s" % (curr_song, d['label'][0]))
+            # jump within song
+            if curr_beat != d['label'][1]-1:
+                print("JUMP %s %d -> %d" % (curr_song, curr_beat, d['label'][1]))
+                actions.append( Jump(sources[curr_song], curr_start,
+                    curr_beat, (curr_beat-curr_start)) )
+                curr_start = d['label'][1]
+            curr_beat = d['label'][1]
+        # transition to diff song
+        else:
+            print("TRANSITION %s:%d --> %s:%d" % (curr_song, curr_beat, d['label'][0], d['label'][1]))
+            # TODO leave buffers?
+            actions.append( Playback(sources[curr_song], curr_start, curr_beat-curr_start) )
+            tracks = [sources[curr_song], sources[d['label'][0]]]
+            starts = [curr_beat, d['label'][1]]
+            actions.append( Crossfade(tracks, starts, 3) )
+            curr_song, curr_beat = d['label']
+
+    return actions
 
 if __name__ == "__main__":
     main()

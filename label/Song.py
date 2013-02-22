@@ -140,16 +140,18 @@ def main():
     usage = "usage: %s [options] <path_to_mp3>" % sys.argv[0]
     parser = OptionParser(usage=usage)
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
-    parser.add_option("-r", "--recompute", action="store_true", help="force recompute graph")
+    parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
+    parser.add_option("-r", "--render", action="store_true", help="render song graph to mp3.")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         parser.print_help()
         return -1
-    recompute = options.recompute
+    recompute = options.force
     verbose = options.verbose
+    render = options.render
 
     song = Song(args[0], recompute, verbose)
-    song.render(song.mp3_name+"-out.mp3")
+    if render: song.render(song.mp3_name+"-out.mp3")
 
     return 1
 
