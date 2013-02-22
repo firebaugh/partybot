@@ -5,11 +5,31 @@
 earworm_support.py
 
 Created by Tristan Jehan and Jason Sundram.
+
+Caitlyn Clabaugh added functionality from earworm.py
 """
 
 import numpy as np
+from numpy.matlib import repmat, repeat
 from copy import deepcopy
-from utils import rows
+import operator
+from utils import rows, tuples, flatten
+import sys
+
+try:
+    import networkx as nx
+except ImportError:
+    print """earworm.py requires networkx. 
+    
+If setuptools is installed on your system, simply:
+easy_install networkx 
+
+Otherwise, you can get it here: http://pypi.python.org/pypi/networkx
+
+Get the source, unzip it, cd to the directory it is in and run:
+    python setup.py install
+"""
+    sys.exit(1)
 
 FUSION_INTERVAL = .06   # This is what we use in the analyzer
 AVG_PEAK_OFFSET = 0.025 # Estimated time between onset and peak of segment.
@@ -113,3 +133,192 @@ def resample_features(data, rate='tatums', feature='timbre'):
         pass # avoid breaking with index > len(segments)
     
     return ret
+
+
+'''
+###############################--EARWORM HELPER FUNCTIONS--##################################
+Functionality taken from earworm.py
+Used in Song.py and Mashup.py
+'''
+
+DEF_DUR = 600
+MAX_SIZE = 800
+MIN_RANGE = 16
+MIN_JUMP = 16
+MIN_ALIGN = 16
+MAX_EDGES = 8
+FADE_OUT = 3
+RATE = 'beats'
+
+
+## Print nodes and edges to screen, for debugging
+def print_screen(graph):
+    for n,d in graph.nodes_iter(data=True):
+        print(n,d)
+    for e in graph.edges_iter():
+        print(e)
+
+def analyze(track):
+    timbre = resample_features(track, rate=RATE, feature='timbre')
+    timbre['matrix'] = timbre_whiten(timbre['matrix'])
+    pitch = resample_features(track, rate=RATE, feature='pitches')
+    # TODO why not whiten pitch matrix?
+    
+    # pick a tradeoff between speed and memory size
+    if rows(timbre['matrix']) < MAX_SIZE:
+        # faster but memory hungry. For euclidean distances only.
+        t_paths = get_paths(timbre['matrix'])
+        p_paths = get_paths(pitch['matrix'])
+    else:
+        # slower but memory efficient. Any distance possible.
+        t_paths = get_paths_slow(timbre['matrix'])
+        p_paths = get_paths_slow(pitch['matrix'])
+    
+    # intersection of top timbre and pitch results
+    paths = path_intersect(t_paths, p_paths)
+    
+    markers = getattr(track.analysis, timbre['rate'])[timbre['index']:timbre['index']+len(paths)]
+    graph = make_graph(paths, markers, timbre['matrix'], pitch['matrix'])
+    
+    # TODO remove last node because empty?
+    size = graph.number_of_nodes()
+    graph.remove_node(size-1)
+    
+    return graph
+ 
+## Make directed, earworm-type graph of mp3 with features
+def make_graph(paths, markers, timbre_features, pitch_features):
+    DG = nx.DiGraph()
+    # add nodes
+    for i in xrange(len(paths)):
+        DG.add_node(markers[i].start, timbre = timbre_features[i], pitch = pitch_features[i])
+    # add edges
+    edges = []
+    # NOTE most of this only necessary in earworm.py
+    # added edges for possible song cuts/increases
+    # just need edges from/to each node in ordered song sequence
+    for i in xrange(len(paths)):
+        if i != len(paths)-1:
+            edges.append((markers[i].start, markers[i+1].start, {'distance':0, 'duration': markers[i].duration, 'source':i, 'target':i+1})) # source and target for plots only
+        edges.extend([(markers[i].start, markers[l[0]+1].start, {'distance':l[1], 'duration': markers[i].duration, 'source':i, 'target':l[0]+1}) for l in paths[i]])
+    DG.add_edges_from(edges)
+
+    # sort by timing
+    DG = sort_graph(DG)
+    
+    return DG
+
+## Sort directed graph by timing
+def sort_graph(graph):
+    """save plot with index numbers rather than timing"""
+    edges = graph.edges(data=True)
+    e = [edge[2]['source'] for edge in edges]
+    order = np.argsort(e)
+    edges = [edges[i] for i in order.tolist()]
+    nodes = graph.nodes(data=True)
+    DG = nx.DiGraph()
+    for edge in edges:
+        source = edge[2]['source']
+        target = edge[2]['target']
+        DG.add_node(source, timbre = nodes[source][1]['timbre'],
+                    pitch = nodes[source][1]['pitch'])
+        DG.add_edge(source, target)
+    return DG
+
+## Save png image of labeled, directed, earworm-type graph of mashup
+def save_plot(graph, track_a, track_b, name="graph.png"):
+    """save plot with index numbers rather than timing"""
+    edges = graph.edges(data=True)
+    e = [edge[2]['source'] for edge in edges]
+    order = np.argsort(e)
+    edges = [edges[i] for i in order.tolist()]
+    nodes = graph.nodes(data=True)
+    DG = nx.DiGraph()
+    for edge in edges:
+        source = edge[2]['source']
+        target = edge[2]['target']
+        v = target-source-1
+        # A
+        if nodes[source][1]['song'] == 'a':
+            DG.add_node(source, color = 'red', song = 'a',
+                        nearest = nodes[source][1]['nearest'],
+                        dist = nodes[source][1]['dist'])
+            DG.add_edge(source, target)
+        # B 
+        if nodes[source][1]['song'] == 'b':
+            DG.add_node(source, color = 'blue', song = 'b',
+                        nearest = nodes[source][1]['nearest'],
+                        dist = nodes[source][1]['dist'])
+            DG.add_edge(source, target)
+    A = nx.to_agraph(DG)
+    A.layout()
+    A.draw(name)
+    return DG
+
+def make_similarity_matrix(matrix, size=MIN_ALIGN):
+    singles = matrix.tolist()
+    points = [flatten(t) for t in tuples(singles, size)]
+    numPoints = len(points)
+    # euclidean distance
+    distMat = np.sqrt(np.sum((repmat(points, numPoints, 1) - repeat(points, numPoints, axis=0))**2, axis=1, dtype=np.float32))
+    return distMat.reshape((numPoints, numPoints))
+
+def get_paths(matrix, size=MIN_RANGE):
+    mat = make_similarity_matrix(matrix, size=MIN_ALIGN)
+    paths = []
+    for i in xrange(rows(mat)):
+        paths.append(get_loop_points(mat[i,:], size))
+    return paths
+
+def get_paths_slow(matrix, size=MIN_RANGE):
+    paths = []
+    for i in xrange(rows(matrix)-MIN_ALIGN+1):
+        vector = np.zeros((rows(matrix)-MIN_ALIGN+1,), dtype=np.float32)
+        for j in xrange(rows(matrix)-MIN_ALIGN+1):
+            vector[j] = evaluate_distance(matrix[i:i+MIN_ALIGN,:], matrix[j:j+MIN_ALIGN,:])
+        paths.append(get_loop_points(vector, size))
+    return paths
+
+# can this be made faster?
+def get_loop_points(vector, size=MIN_RANGE, max_edges=MAX_EDGES):
+    res = set()
+    m = np.mean(vector)
+    s = np.std(vector)
+    for i in xrange(vector.size-size):
+        sub = vector[i:i+size]
+        j = np.argmin(sub)
+        if sub[j] < m-s and j != 0 and j != size-1 and sub[j] < sub[j-1] and sub[j] < sub[j+1] and sub[j] != 0:
+            res.add((i+j, sub[j]))
+            i = i+j # we skip a few steps
+    # let's remove clusters of minima
+    res = sorted(res, key=operator.itemgetter(0))
+    out = set()
+    i = 0
+    while i < len(res):
+        tmp = [res[i]]
+        j = 1
+        while i+j < len(res):
+            if res[i+j][0]-res[i+j-1][0] < MIN_RANGE:
+                tmp.append(res[i+j])
+                j = j+1
+            else:
+                break
+        tmp = sorted(tmp, key=operator.itemgetter(1))
+        out.add(tmp[0])
+        i = i+j
+    out = sorted(out, key=operator.itemgetter(1))
+    return out[:max_edges]
+
+def path_intersect(timbre_paths, pitch_paths):
+    assert(len(timbre_paths) == len(pitch_paths))
+    paths = []
+    for i in xrange(len(timbre_paths)):
+        t_list = timbre_paths[i]
+        p_list = pitch_paths[i]
+        t = [l[0] for l in t_list]
+        p = [l[0] for l in p_list]
+        r = filter(lambda x:x in t,p)
+        res = [(v, t_list[t.index(v)][1] + p_list[p.index(v)][1]) for v in r]
+        paths.append(res)
+    return paths
+
