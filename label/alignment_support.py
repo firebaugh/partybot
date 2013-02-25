@@ -18,7 +18,7 @@ import numpy as np
 ## Iterative local sequence alignment (smith-waterman)
 ## Returns labeled graph of mashup using source songs
 ## mashup = type Mashup
-def align(mashup, verbose=False):
+def alignment_labeling(mashup, verbose=False):
     mashup_graph = mashup.mashup.graph
     unlabeled = mashup_graph.nodes()
 
@@ -42,7 +42,7 @@ def align(mashup, verbose=False):
     
     return mashup_graph
 
-match_award = 5 
+match_award = 2 
 gap_penalty = -5
 #cut_cost = -7
 ## Calculate score between seq1 and seq2 sites a and b
@@ -108,7 +108,7 @@ def water(final, seq1, seq2, label):
             i -= 1
             j -= 1
         elif pointer[i][j] == 2:
-            align1.append(seq1[i])
+            align1.append(i)
             align2.append(j-1)
             j -= 1
         elif pointer[i][j] == 1:
@@ -130,7 +130,7 @@ def water(final, seq1, seq2, label):
             score += match_score(final.node[align1[i]], seq2.node[align2[i]])
         final.node[align1[i]]['label'] = (label, align2[i])
 
-    #remove labeled nodes 
+    #remove labeled nodes
     seq1 = list(set(seq1)-set(align1))
 
     return final, seq1, score

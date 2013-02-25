@@ -22,28 +22,13 @@ from pyechonest import config
 config.ECHO_NEST_API_KEY = "TTAPZNVYMGG5KQBJI"
 
 from optparse import OptionParser
-import numpy as np
 import sys
-
-try:
-    import networkx as nx
-except ImportError:
-    print """earworm.py requires networkx. 
-    
-If setuptools is installed on your system, simply:
-easy_install networkx 
-
-Otherwise, you can get it here: http://pypi.python.org/pypi/networkx
-
-Get the source, unzip it, cd to the directory it is in and run:
-    python setup.py install
-"""
-    sys.exit(1)
 
 from echonest.action import Playback, Jump, Crossfade, render, display_actions
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
-from alignment_support import align
+from alignment_support import alignment_labeling
+from genetic_support import genetic_labeling
 
 ###############################--MASHUP CLASS--##################################
 
@@ -71,11 +56,11 @@ class Mashup:
     def label(self, algorithm="GA", verbose=False):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
-            self.labeled = align(self, verbose)
+            self.labeled = alignment_labeling(self, verbose)
             return self.labeled
         else:
-            #TODO use GA
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
+            genetic_labeling(self)
             return 0
     
     '''
@@ -174,20 +159,20 @@ def get_actions(labeled_mashup, sources, verbose=False):
     curr_start = labeled_mashup.node[0]['label'][1]
     curr_beat = labeled_mashup.node[0]['label'][1]-1
     for n,d in labeled_mashup.nodes_iter(data=True):
-        print(n,d)
         # same song
+        print(n,d)
         if curr_song == d['label'][0]:
-            print("same songs %s and %s" % (curr_song, d['label'][0]))
+            if verbose: print("SAME %s and %s" % (curr_song, d['label'][0]))
             # jump within song
             if curr_beat != d['label'][1]-1:
-                print("JUMP %s %d -> %d" % (curr_song, curr_beat, d['label'][1]))
+                if verbose: print("JUMP %s %d -> %d" % (curr_song, curr_beat, d['label'][1]))
                 actions.append( Jump(sources[curr_song], curr_start,
                     curr_beat, (curr_beat-curr_start)) )
                 curr_start = d['label'][1]
             curr_beat = d['label'][1]
         # transition to diff song
         else:
-            print("TRANSITION %s:%d --> %s:%d" % (curr_song, curr_beat, d['label'][0], d['label'][1]))
+            if verbose: print("TRANSITION %s:%d --> %s:%d" % (curr_song, curr_beat, d['label'][0], d['label'][1]))
             # TODO leave buffers?
             actions.append( Playback(sources[curr_song], curr_start, curr_beat-curr_start) )
             tracks = [sources[curr_song], sources[d['label'][0]]]
