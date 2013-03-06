@@ -16,12 +16,20 @@ class Individual(object):
     def __init__(self, mashup, sequence=None):
         self.mashup = mashup
         self.length = mashup.mashup.graph.number_of_nodes()
+        self.max_source = 0
+        self.min_source = sys.float_info.max
+        for source in self.mashup.sources:
+            if source.graph.number_of_nodes() < self.min_source:
+                self.min_source = source.graph.number_of_nodes()
+            if source.graph.number_of_nodes() > self.max_source:
+                self.max_source = source.graph.number_of_nodes()
         self.sequence = sequence or self.genseq()
-        self.score = None
+        self.fitness = None
+        self.segs = None
 
     def transitions(self):
         indexes = []
-        for i in range(0,len(self.sequence)):
+        for i in range(0, self.length):
             if self.sequence[i] == 1:
                 indexes.append(i)
         return indexes
@@ -29,32 +37,53 @@ class Individual(object):
     def segments(self):
         segs = []
         last = 0
-        for i in self.transitions():
-            segs.append( (last, i) )
-            last = i+1
-        if self.length > last: segs.append( (last, (self.length-1)) )
+        for i in range(1, self.length):
+            if self.sequence[i] == 1 or i == self.length-1:
+                segs.append( (last, i) )
+                last = i+1
         return segs
 
-    # Generate sequence 2 randomly placed transitions (1s)
-    def genseq(self, n=2):
-        sequence = [0] * (self.length-1)
-        for i in range(n):
-            sequence[random.randrange(0, len(sequence))] = 1
+    def genseq(self, n=0):
+        #select enough transitions to spread source songs
+        N = int(self.length/self.min_source) + 1
+        if N < n: N = n
+        sustain = False
+        while sustain == False:
+            sequence = [0] * (self.length)
+            for i in range(N):
+                sequence[random.randrange(1, self.length-2)] = 1
+            #make sure some source song can align to the segments
+            sustain = self.is_sustainable(sequence)
         return sequence
+
+    def is_sustainable(self, sequence):
+        last = 0
+        for i in range(self.length):
+            if sequence[i] == 1 or i == self.length-1:
+                if (i-last) > self.max_source-1:
+                    return False
+                else:
+                    last = i+1
+        return True
     
-    # Evaluate individual using scoring function
-    def evaluate(self, optimum=None):
-        self.score = self._score(self.sequence)
-        return self.score
+    # Score individuals fitness
+    # Store the best segments
+    def _evaluate(self, optimum=None):
+        #NOTE if no source songs match segment,
+        #     re-randomize individual with >= # of transitions
+        if self.is_sustainable(self.sequence) == False:
+            self.sequence = self.genseq(len(self.transitions()))
+        self.fitness, self.segs = self._score(self.sequence)
+        return self.fitness
 
     # Score transitions based on possible mashup labeling
     def _score(self, sequence):
         tot_score = 0
+        segs = {}
         # score each segment
         for seg in self.segments():
-            mashup_seg = [self.mashup.mashup.graph.node[n] for n in range(seg[0],seg[1]+1)]
+            mashup_seg = [self.mashup.mashup.graph.node[n] for n in range(seg[0], seg[1]+1)]
             leng = seg[1]-seg[0]
-            #NOTE if no source songs match segment (too long), then max float is cost?
             min_score = sys.float_info.max
             # use min score of each source song
             for source in self.mashup.sources:
@@ -66,10 +95,24 @@ class Individual(object):
                     score = feature_distance(mashup_seg, song_seg)
                     if score < min_score:
                         min_score = score
+                        #segs[seg] = (source.mp3_name, score, song_seg)
+                        segs[seg] = source.mp3_name
             tot_score = tot_score + min_score
-        return tot_score
+        if tot_score == sys.float_info.max:
+            print("?")
+        return tot_score, segs
+
+    #sigma scaling
+    def _scale(self, mean, std):
+        if std != 0:
+            scaled_fitness = 1.0 + ( (self.fitness - mean)/(2.0*std) )
+            if scaled_fitness < 0:
+                return 0.1
+            else:
+                return scaled_fitness
+        else:
+            return 1.0
                 
-    #NOTE is two-point cross over the best?
     def crossover(self, other):
         return self._twopoint(other)
 
@@ -89,31 +132,21 @@ class Individual(object):
         return left, right
 
     # Pick a uniformly random transition to mutate
-    # Use random (NOTE use max scoring operator? expensive!) operator:
+    # Use RANDOM operator:
     #   - Add a random transition
     #   - Delete a random transition
     #   - Move a random transition left or right
     def mutate(self):
         transitions = self.transitions()
-        #op = random.randrange(0,3)
-        #NOTE is no transitions in segment, use add mutation
-        #if op == 0 or len(transitions) == 0:
-        #    return self._add()
-        #elif op == 1:
-        #    return self._delete(random.choice(transitions))
-        #else:
-        #    return self._move(random.choice(transitions), random.choice(("l","r")))
-        if len(transitions) == 0:
-            add = self._add()
-            return add[1]
+        op = random.randrange(0,3)
+        #NOTE if no transitions, add mutation
+        if op == 0 or len(transitions) == 0:
+            return self._add()
+        elif op == 1:
+            return self._delete(random.choice(transitions))
         else:
-            transition = random.choice(transitions)
-            add = self._add()
-            delete = self._delete(transition)
-            move = self._move(transition, random.choice("l","r"))
-            max_op = max(add, delete, move)
-            return max_op[1]
-
+            return self._move(random.choice(transitions), random.choice(("l","r")))
+       
     def _add(self):
         sequence = self.sequence
         indexes = []
@@ -121,14 +154,12 @@ class Individual(object):
             if sequence[i] == 0:
                 indexes.append(i)
         sequence[random.choice(indexes)] = 1
-        #return sequence
-        return (self._score(sequence), sequence)
+        return sequence
 
     def _delete(self, transition):
         sequence = self.sequence
         sequence[transition] = 0
-        #return sequence
-        return (self._score(sequence), sequence)
+        return sequence
 
     def _move(self, transition, direction):
         sequence = self.sequence
@@ -137,8 +168,7 @@ class Individual(object):
             sequence[transition-1] = 1
         else: #RIGHT
             sequence[transition+1] = 1
-        #return sequence
-        return (self._score(sequence), sequence)
+        return sequence
     
     #TODO fix duplicated genes?
     def _repair(self, p0, p1):
@@ -150,16 +180,16 @@ class Individual(object):
         pass
 
     def __repr__(self):
-        return '<%s transitions="%s" score="%s">' % \
-                (self.__class__.__name__, self.transitions(), self.score)
+        return '<%s transitions="%s" fitness="%s">' % \
+                (self.__class__.__name__, self.segs, self.fitness)
 
     # MINIMIZE score
     def __cmp__(self, other):
-        return cmp(self.score, other.score)
+        return cmp(self.fitness, other.fitness)
 
     def copy(self):
         twin = self.__class__(self.mashup,self.sequence[:])
-        twin.score = self.score
+        twin.fitness = self.fitness
         return twin
 
 class Environment(object):
@@ -169,8 +199,10 @@ class Environment(object):
         self.size = size
         self.optimum = optimum
         self.population = population or self.genpop()
+        print("Generated population.")
         for individual in self.population:
-            individual.evaluate(self.optimum)
+            individual._evaluate(self.optimum)
+        print("Evaluated population.")
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate
         self.maxgenerations = maxgenerations
@@ -198,9 +230,11 @@ class Environment(object):
         self.population.sort()
         self._crossover()
         self.generation += 1
+        self.population.sort()
         self.report()
 
     def _crossover(self):
+        self._scale()
         next_population = [self.best.copy()]
         while len(next_population) < self.size:
             mate1 = self._select()
@@ -211,11 +245,14 @@ class Environment(object):
                 offspring = [mate1.copy()]
             for individual in offspring:
                 self._mutate(individual)
-                individual.evaluate(self.optimum)
+                individual._evaluate(self.optimum)
                 next_population.append(individual)
-            self.population = next_population[:self.size]
+        #NOTE: make pop bigger, then sort and cut
+        for i in next_population:
+            self.population.append(i)
+        self.population.sort()
+        self.population = self.population[:self.size]
 
-    #NOTE is this a good selection method?
     def _select(self):
         return self._tournament()
 
@@ -230,6 +267,17 @@ class Environment(object):
             return competitors[0]
         else:
             return random.choice(competitors[1:])
+
+    #sigma scaling
+    def _scale(self):
+        mean, std = self._evaluate()
+        for individual in self.population:
+            individual.fitness = individual._scale(mean, std)
+
+    #mean and std of pop fitness
+    def _evaluate(self):
+        scores = [individual.fitness for individual in self.population]
+        return np.mean(scores), np.std(scores)
 
     def report(self):
         print("="*70)
@@ -251,7 +299,7 @@ def feature_distance(seg1, seg2):
 
 
 def genetic_labeling(mashup, size=100, maxgenerations=100, 
-        crossover_rate=0.9, mutation_rate=0.2):
+        crossover_rate=0.9, mutation_rate=0.3):
     env = Environment(mashup, None, size, maxgenerations, crossover_rate, mutation_rate)
     env.run()
 
