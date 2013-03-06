@@ -65,42 +65,52 @@ class Individual(object):
                 else:
                     last = i+1
         return True
-    
+
     # Score individuals fitness
-    # Store the best segments
-    def _evaluate(self, optimum=None):
-        #NOTE if no source songs match segment,
-        #     re-randomize individual with >= # of transitions
-        if self.is_sustainable(self.sequence) == False:
-            self.sequence = self.genseq(len(self.transitions()))
-        self.fitness, self.segs = self._score(self.sequence)
-        return self.fitness
+    def _evaluate(self, cache):
+        self.fitness, self.segs, cache = self._score(self.sequence, cache)
+        return cache
 
     # Score transitions based on possible mashup labeling
-    def _score(self, sequence):
+    def _score(self, sequence, cache):
         tot_score = 0
         segs = {}
         # score each segment
         for seg in self.segments():
-            mashup_seg = [self.mashup.mashup.graph.node[n] for n in range(seg[0], seg[1]+1)]
-            leng = seg[1]-seg[0]
+            leng = seg[1]-seg[0] #size of window
             min_score = sys.float_info.max
+            
             # use min score of each source song
             for source in self.mashup.sources:
                 beginnings = source.graph.number_of_nodes()-leng
+                
                 # sliding window distance
                 for node in range(beginnings):
-                    song_seg = [source.graph.node[n] for n in range(node, node+leng+1)]
-                    # get distance between source segment and mashup segment features
-                    score = feature_distance(mashup_seg, song_seg)
+                
+                    score = 0
+                    c = 0
+                    for n in range(node, node+leng+1):
+                        # see if we have already calculated this
+                        if (seg[0]+c, source.mp3_name, n) in cache:
+                            score += cache[(seg[0]+c, source.mp3_name, n)]
+                        # calculate and store new distance
+                        else:
+                            distance = feature_distance(
+                                    self.mashup.mashup.graph.node[seg[0]+c], 
+                                    source.graph.node[n])
+                            cache[(seg[0]+c, source.mp3_name, n)] = distance
+                            score += distance
+                        c += 1
+                    
+                    # get min euclidean distance
+                    score = np.sqrt(score)
                     if score < min_score:
                         min_score = score
                         #segs[seg] = (source.mp3_name, score, song_seg)
                         segs[seg] = source.mp3_name
+            
             tot_score = tot_score + min_score
-        if tot_score == sys.float_info.max:
-            print("?")
-        return tot_score, segs
+        return tot_score, segs, cache
 
     #sigma scaling
     def _scale(self, mean, std):
@@ -117,62 +127,84 @@ class Individual(object):
         return self._twopoint(other)
 
     def _twopoint(self, other):
-        left, right = self._pickpivots()
         def mate(p0, p1):
             sequence = p0.sequence[:]
             sequence[left:right] = p1.sequence[left:right]
             child = p0.__class__(self.mashup,sequence)
             child._repair(p0,p1)
             return child
-        return mate(self, other), mate(other, self)
+        # only returns sustainable offspring
+        while True:
+            left, right = self._pickpivots()
+            child1, child2 = mate(self, other), mate(other, self)
+            if self.is_sustainable(child1.sequence) and self.is_sustainable(child2.sequence):
+                return child1, child2
 
     def _pickpivots(self):
         left = random.randrange(1, self.length-2)
         right = random.randrange(left, self.length-1)
         return left, right
+    
+    #fix duplicated sequences
+    def _repair(self, p0, p1):
+        sustain = False
+        while sustain == False:
+            # choice random: teleport or add
+            op = random.choice([0,1])
+            transitions = self.transitions()
+            if op == 0:
+                self.sequence[random.choice(transitions)] = 0
+            self.sequence[random.randrange(self.length)] = 1
+            # ensure sustainability
+            sustain = self.is_sustainable(self.sequence)
 
     # Pick a uniformly random transition to mutate
-    # Use RANDOM operator:
+    # Use OPTIMAL operator:
     #   - Add a random transition
     #   - Delete a random transition
     #   - Move a random transition left or right
-    def mutate(self):
-        transitions = self.transitions()
-        op = random.randrange(0,3)
-        #NOTE if no transitions, add mutation
-        if op == 0 or len(transitions) == 0:
-            return self._add()
-        elif op == 1:
-            return self._delete(random.choice(transitions))
-        else:
-            return self._move(random.choice(transitions), random.choice(("l","r")))
+    def mutate(self, cache):
+        transition = random.choice(self.transitions())
+        # only consider sustainable mutations
+        mutations = []
+        add, cache = self._add(cache)
+        if self.is_sustainable(add[1]) == True:
+            mutations.append(add)
+        delete, cache = self._delete(transition, cache)
+        if self.is_sustainable(delete[1]) == True:
+            mutations.append(delete)
+        move, cache = self._move(transition, random.choice( ("l","r") ), cache)
+        if self.is_sustainable(move[1]) == True:
+            mutations.append(move)
+        # use optimal mutation
+        self.fitness, self.sequence, self.segs = max(mutations)
+        return cache
        
-    def _add(self):
+    def _add(self, cache):
         sequence = self.sequence
         indexes = []
         for i in range(len(sequence)):
             if sequence[i] == 0:
                 indexes.append(i)
         sequence[random.choice(indexes)] = 1
-        return sequence
+        fitness, segs, cache = self._score(sequence, cache)
+        return (fitness, sequence, segs), cache
 
-    def _delete(self, transition):
+    def _delete(self, transition, cache):
         sequence = self.sequence
         sequence[transition] = 0
-        return sequence
+        fitness, segs, cache = self._score(sequence, cache)        
+        return (fitness, sequence, segs), cache
 
-    def _move(self, transition, direction):
+    def _move(self, transition, direction, cache):
         sequence = self.sequence
         sequence[transition] = 0
         if direction == "l": #LEFT
             sequence[transition-1] = 1
         else: #RIGHT
             sequence[transition+1] = 1
-        return sequence
-    
-    #TODO fix duplicated genes?
-    def _repair(self, p0, p1):
-        pass
+        fitness, segs, cache = self._score(sequence, cache)        
+        return (fitness, sequence, segs), cache
 
     #TODO return mashup with individual's transitions
     # labeled with closest fit song segments
@@ -194,15 +226,15 @@ class Individual(object):
 
 class Environment(object):
     def __init__(self, mashup, population=None, size=100, maxgenerations=100,
-            crossover_rate=0.90, mutation_rate=0.01, optimum=None):
+            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0):
         self.mashup = mashup
         self.size = size
         self.optimum = optimum
         self.population = population or self.genpop()
-        print("Generated population.")
+        self.cache = {} #{(mashup_node, source_name, source_node): feature_distance}
         for individual in self.population:
-            individual._evaluate(self.optimum)
-        print("Evaluated population.")
+            self.cache = individual._evaluate(self.cache)
+        self._scale()
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate
         self.maxgenerations = maxgenerations
@@ -224,9 +256,10 @@ class Environment(object):
         return self._finalize()
 
     def _goal(self):
-        return self.generation > self.maxgenerations
+        return self.generation > self.maxgenerations or self.best.fitness == self.optimum
 
     def step(self):
+        self._scale()
         self.population.sort()
         self._crossover()
         self.generation += 1
@@ -234,50 +267,59 @@ class Environment(object):
         self.report()
 
     def _crossover(self):
-        self._scale()
         next_population = [self.best.copy()]
+        mates = self._select() #select possible parents using SUS with sigma scaling
         while len(next_population) < self.size:
-            mate1 = self._select()
+            mate1 = random.choice(mates)
             if random.random() < self.crossover_rate:
-                mate2 = self._select()
+                mate2 = random.choice(mates) #TODO is this right?
                 offspring = mate1.crossover(mate2)
             else:
                 offspring = [mate1.copy()]
             for individual in offspring:
                 self._mutate(individual)
-                individual._evaluate(self.optimum)
+                individual._evaluate(self.cache)
                 next_population.append(individual)
-        #NOTE: make pop bigger, then sort and cut
+        # add new pop to old pop, sort, then cut off at pop max size
         for i in next_population:
             self.population.append(i)
         self.population.sort()
         self.population = self.population[:self.size]
 
     def _select(self):
-        return self._tournament()
+        return self.SUS()
 
     def _mutate(self, individual):
         if random.random() < self.mutation_rate:
-            individual.mutate()
+            self.cache = individual.mutate(self.cache)
 
-    def _tournament(self, size=8, choosebest=0.90):
-        competitors = [random.choice(self.population) for i in range(size)]
-        competitors.sort()
-        if random.random()< choosebest:
-            return competitors[0]
-        else:
-            return random.choice(competitors[1:])
+    # stochastic universal sampling
+    def SUS(self):
+        mates = []
+        ptr = random.random()
+        accum = 0
+        for i in range(self.size):
+            accum += self.population[i].fitness
+            if accum > ptr:
+                mates.append(self.population[i])
+                ptr += 1
+        return mates
 
-    #sigma scaling
     def _scale(self):
+        #sigma scaling
         mean, std = self._evaluate()
+        accum = 0
         for individual in self.population:
             individual.fitness = individual._scale(mean, std)
+            accum += individual.fitness
+        #normalize
+        for individual in self.population:
+            individual.fitness /= accum
 
-    #mean and std of pop fitness
     def _evaluate(self):
         scores = [individual.fitness for individual in self.population]
         return np.mean(scores), np.std(scores)
+
 
     def report(self):
         print("="*70)
@@ -287,19 +329,18 @@ class Environment(object):
     def _finalize(self):
         return self.best._finalize()
 
-# Euclidean distance between two lists of nodes
+# Sum feature distance between two nodes
 # Nodes have two feature vectors, pitch and timbre, each of 12 floats
-def feature_distance(seg1, seg2):
+def feature_distance(n1, n2):
     distance = 0
-    for n in range(len(seg1)):
-        for f in range(12):
-            distance = distance + pow((seg1[n]['pitch'][f] - seg2[n]['pitch'][f]),2)
-            distance = distance + pow((seg1[n]['timbre'][f] - seg2[n]['timbre'][f]),2)
-    return np.sqrt(distance)
+    for f in range(12):
+        distance += pow((n1['pitch'][f] - n2['pitch'][f]),2)
+        distance += pow((n1['timbre'][f] -n2['timbre'][f]),2)
+    return distance
 
 
-def genetic_labeling(mashup, size=100, maxgenerations=100, 
-        crossover_rate=0.9, mutation_rate=0.3):
-    env = Environment(mashup, None, size, maxgenerations, crossover_rate, mutation_rate)
+def genetic_labeling(mashup, size=300, maxgenerations=100, 
+        crossover_rate=0.9, mutation_rate=0.3, optimum=0.0):
+    env = Environment(mashup, None, size, maxgenerations, crossover_rate, mutation_rate, optimum)
     env.run()
 
