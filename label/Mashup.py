@@ -23,8 +23,10 @@ config.ECHO_NEST_API_KEY = "TTAPZNVYMGG5KQBJI"
 
 from optparse import OptionParser
 import sys
+from string import split
+from itertools import combinations
 
-from echonest.action import Playback, Jump, Crossfade, render, display_actions
+from echonest.action import Playback, Jump, Crossfade, Crossmatch, render, display_actions
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
 from alignment_support import alignment_labeling
@@ -42,16 +44,61 @@ class Mashup:
         recompute = force recompute graphs for tracks
         verbose = print results on screen
     '''
-    def __init__(self, mashup_filename, source_filenames, recompute=False, verbose=False):
+    def __init__(self, mashup_filename, source_filenames, 
+            crossmatch=True, recompute=False, verbose=False):
         
         self.mashup = Song(mashup_filename, recompute, verbose)
         self.sources = [Song(s, recompute, verbose) for s in source_filenames]
-        #cross over sources
-        #for s1 in self.sources:
-            #for s2 in self.sources:
-                #if s1 != s2:
-                    #self.sources.append(s1.cross(s2,beat))
+        if crossmatch:
+            if verbose: print("Crossmatching sources...")
+            self.crossmatch_sources(verbose)
         self.labeled = None
+
+    '''
+    Crossmatch pairs of sources and add them to sources list
+    '''
+    def crossmatch_sources(self, verbose=False):
+        for pair in combinations(self.sources, 2):
+            #get song name info
+            s1_path = split(pair[0].mp3_name, "/")
+            s2_path = split(pair[1].mp3_name, "/")
+            s1_name = s1_path[len(s1_path)-1]
+            s2_name = s2_path[len(s2_path)-1]
+            s1_s2 = pair[0].mp3_name+"-"+s2_name+"-cross.mp3"
+            s2_s1 = pair[1].mp3_name+"-"+s1_name+"-cross.mp3"
+            #get song node/length info
+            s1_nodes = pair[0].graph.nodes()
+            s2_nodes = pair[1].graph.nodes()
+            if len(s1_nodes) > len(s2_nodes):
+                s1_nodes = s1_nodes[:len(s2_nodes)]
+            elif len(s2_nodes) > len(s1_nodes):
+                s2_nodes = s2_nodes[:len(s1_nodes)]
+
+            print(s1_nodes, s2_nodes)
+
+            #check is crossmatch song exists
+            try:
+                f = open(s1_s2)
+                f.close()
+                if verbose: print("Found crossmatch %s" % s1_s2)
+                self.sources.append(Song(s1_s2))
+            except:
+                try:
+                    f = open(s2_s1)
+                    f.close()
+                    if verbose: print("Found crossmatch %s" % s2_s1)
+                    self.sources.append(Song(s2_s1))
+                #RENDER
+                except:
+                    if verbose: print("Found no precomputed crossmatches.")
+                    #load tracks
+                    if pair[0].track == None: pair[0].load_track()
+                    if pair[1].track == None: pair[1].load_track()
+                    tracks = (pair[0].track, pair[1].track)
+                    lists = (s1_nodes, s2_nodes)
+                    render([Crossmatch(tracks,lists)],s1_s2)
+                    self.sources.append(Song(s1_s2))
+
 
     '''
     Label mashup with sources using...
@@ -116,6 +163,7 @@ def main():
     # Command line options
     usage = "usage: %s [options] <path_to_mashup> [<path_to_source1> <path_to_source2> ...]" % sys.argv[0]
     parser = OptionParser(usage=usage)
+    parser.add_option("-x", "--crossmatch", action="store_true", help="crossmatch pairs of source songs")
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
     parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
@@ -137,6 +185,7 @@ def main():
         return -1
 
     # OPTIONS
+    crossmatch = options.crossmatch
     recompute = options.force
     verbose = options.verbose
     label = options.algorithm
@@ -157,7 +206,7 @@ def main():
     else: optimum = 0.0
 
     # CREATE Mashup data structure
-    mashup = Mashup(args[0], args[1:], recompute, verbose)
+    mashup = Mashup(args[0], args[1:], crossmatch, recompute, verbose)
     
     # LABEL Mashup using sequence alignment or GA
     if label:
