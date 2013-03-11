@@ -24,7 +24,7 @@ from string import lower, split
 try:
     import networkx as nx
 except ImportError:
-    print """earworm.py requires networkx. 
+    print """Song.py requires networkx. 
     
 If setuptools is installed on your system, simply:
 easy_install networkx 
@@ -120,6 +120,11 @@ class Song:
         f.write("\n".join( (str(s)+" "+str(t)) for s,t in self.graph.edges_iter() ))
         f.close()
 
+    def cross(self, other, beat=None):
+        if beat == None:
+            if self.track == None: self.load_track()
+            beat = self.track
+                
     def render(self, mp3_filename):
         # Check that we have loaded track from Echo Nest
         if self.track == None:

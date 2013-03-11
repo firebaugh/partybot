@@ -162,7 +162,7 @@ def analyze(track):
     timbre = resample_features(track, rate=RATE, feature='timbre')
     timbre['matrix'] = timbre_whiten(timbre['matrix'])
     pitch = resample_features(track, rate=RATE, feature='pitches')
-    # TODO why not whiten pitch matrix?
+    #NOTE why not whiten pitch matrix?
     
     # pick a tradeoff between speed and memory size
     if rows(timbre['matrix']) < MAX_SIZE:
@@ -180,7 +180,7 @@ def analyze(track):
     markers = getattr(track.analysis, timbre['rate'])[timbre['index']:timbre['index']+len(paths)]
     graph = make_graph(paths, markers, timbre['matrix'], pitch['matrix'])
     
-    # TODO remove last node because empty?
+    #NOTE remove last node because empty?
     size = graph.number_of_nodes()
     graph.remove_node(size-1)
     

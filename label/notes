@@ -1,0 +1,18 @@
+TO DO:
+- reconstruction
+- visualize population (fitness and type in case of duplicates)
+- cross over source song, beat match to mashup (since we have that power :D)
+- local hill climbing
+- batch script
+- distribute
+
+QUESTIONS:
+- use sigma scaling then weighted random choice?
+- choose mate population of population size?
+- choose distinct mates?
+- repair duplicate children?
+- normalize with sigma scaling?
+- maximize fitness when fitness = 1 - feature distance
+- crossover rate?
+- re-randomize unsustainable individuals with same # of transitions?
+- add next pop to curr pop and select top based on *unscaled* fitness?

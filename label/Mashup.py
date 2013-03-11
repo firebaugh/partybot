@@ -46,6 +46,11 @@ class Mashup:
         
         self.mashup = Song(mashup_filename, recompute, verbose)
         self.sources = [Song(s, recompute, verbose) for s in source_filenames]
+        #cross over sources
+        #for s1 in self.sources:
+            #for s2 in self.sources:
+                #if s1 != s2:
+                    #self.sources.append(s1.cross(s2,beat))
         self.labeled = None
 
     '''
@@ -53,15 +58,17 @@ class Mashup:
         "SA" = sequence alignment
         "GA" = genetic algorithm
     '''
-    def label(self, algorithm="GA", verbose=False):
+    def label(self, algorithm="GA", verbose=False, plot=None,
+            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
             self.labeled = alignment_labeling(self, verbose)
             return self.labeled
         else:
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
-            genetic_labeling(self)
-            return 0
+            self.labeled = genetic_labeling(self, verbose, plot, 
+                    size, maxgens, crossover, mutation, optimum)
+            return self.labeled
     
     '''
     Evaluate mashup versus labeled mashup
@@ -74,7 +81,7 @@ class Mashup:
     '''
     Render reconstruction of mashup using labeled segments of sources
     '''
-    def reconstruct(self, verbose=False):
+    def reconstruct(self, algorithm, verbose=False):
         # Check that we have loaded track from Echo Nest
         # Create source dictionary
         source_dict = {}
@@ -86,7 +93,7 @@ class Mashup:
 
         actions = get_actions(self.labeled, source_dict, verbose)
         
-        filename = self.mashup.mp3_name+"-reconstructed.mp3"
+        filename = self.mashup.mp3_name+"-"+algorithm+"-reconstructed.mp3"
         render(actions, filename)
        
     '''
@@ -111,8 +118,14 @@ def main():
     parser = OptionParser(usage=usage)
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
-    parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGORITHM", metavar="ALGO")
+    parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
     parser.add_option("-r", "--render", action="store_true", help="reconstruct mashup using source songs")
+    parser.add_option("-p", "--plot", dest="plot", help="plot GA's progress to .dat file PLOT", metavar="PLOT")
+    parser.add_option("-s", "--size", dest="size", help="SIZE of GA population", metavar="SIZE")
+    parser.add_option("-g", "--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
+    parser.add_option("-c", "--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")
+    parser.add_option("-m", "--mutation", dest="mutation", help="MUTATION rate for GA", metavar="MUTATION")
+    parser.add_option("-o", "--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         print("Enter mashup and source song(s).\n")
@@ -123,17 +136,37 @@ def main():
         parser.print_help()
         return -1
 
+    # OPTIONS
     recompute = options.force
     verbose = options.verbose
-    labeling = options.algorithm
+    label = options.algorithm
     render = options.render
-    
+    plot = options.plot
+    #size
+    if options.size: size = int(options.size)
+    else: size = 300
+    #max generations
+    if options.maxgens: maxgens = int(options.maxgens)
+    else: maxgens = 100
+    #crossover rate
+    if options.crossover: crossover = float(options.crossover)
+    else: crossover = 0.9
+    if options.mutation: mutation = float(options.mutation)
+    else: mutation = 0.2
+    if options.optimum: optimum = float(options.optimum)
+    else: optimum = 0.0
+
+    # CREATE Mashup data structure
     mashup = Mashup(args[0], args[1:], recompute, verbose)
     
-    if labeling: mashup.label(labeling, verbose)
+    # LABEL Mashup using sequence alignment or GA
+    if label:
+        mashup.label(label, verbose, plot, size, maxgens, crossover, mutation, optimum)
+    
+    # RECONSTRUCT mashup using labeled source song segments
     if render:
-        if labeling:
-            mashup.reconstruct(verbose)
+        if label:
+            mashup.reconstruct(label,verbose)
         else:
             print("Enter labeling option to use render option.")
             parser.print_help()
