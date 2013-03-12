@@ -1,0 +1,7 @@
+python 2.5-2.7
+ffmpeg:
+    http://www.vimp.com/en/documentation-faq-article/items/howto-compile-ffmpeg-for-ubuntu-and-debian.html
+echo nest
+networkx
+install locally:
+    http://isezen.com/2011/09/02/how-to-install-locally-python-on-linux-home-directory/
