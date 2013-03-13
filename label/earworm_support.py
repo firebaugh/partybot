@@ -6,7 +6,7 @@ earworm_support.py
 
 Created by Tristan Jehan and Jason Sundram.
 
-Caitlyn Clabaugh added functionality from earworm.py
+Caitlyn Clabaugh added functionality from earworm and capsule
 """
 
 import numpy as np
@@ -137,7 +137,7 @@ def resample_features(data, rate='tatums', feature='timbre'):
 
 '''
 ###############################--EARWORM HELPER FUNCTIONS--##################################
-Functionality taken from earworm.py
+Functionality taken from earworm/earworm_support.py
 Used in Song.py and Mashup.py
 '''
 
@@ -155,8 +155,8 @@ RATE = 'beats'
 def print_screen(graph):
     for n,d in graph.nodes_iter(data=True):
         print(n,d)
-    for e in graph.edges_iter():
-        print(e)
+    for s,t,d in graph.edges_iter(data=True):
+        print(s,t,d)
 
 def analyze(track):
     timbre = resample_features(track, rate=RATE, feature='timbre')
@@ -183,7 +183,7 @@ def analyze(track):
     #NOTE remove last node because empty?
     size = graph.number_of_nodes()
     graph.remove_node(size-1)
-    
+   
     return graph
  
 ## Make directed, earworm-type graph of mp3 with features
@@ -194,18 +194,16 @@ def make_graph(paths, markers, timbre_features, pitch_features):
         DG.add_node(markers[i].start, timbre = timbre_features[i], pitch = pitch_features[i])
     # add edges
     edges = []
-    # NOTE most of this only necessary in earworm.py
-    # added edges for possible song cuts/increases
-    # just need edges from/to each node in ordered song sequence
     for i in xrange(len(paths)):
         if i != len(paths)-1:
             edges.append((markers[i].start, markers[i+1].start, {'distance':0, 'duration': markers[i].duration, 'source':i, 'target':i+1})) # source and target for plots only
-        edges.extend([(markers[i].start, markers[l[0]+1].start, {'distance':l[1], 'duration': markers[i].duration, 'source':i, 'target':l[0]+1}) for l in paths[i]])
+        #NOTE Earworm alternate path interesections. Not necessary for labeling.
+        #edges.extend([(markers[i].start, markers[l[0]+1].start, {'distance':l[1], 'duration': markers[i].duration, 'source':i, 'target':l[0]+1}) for l in paths[i]])
     DG.add_edges_from(edges)
 
     # sort by timing
     DG = sort_graph(DG)
-    
+
     return DG
 
 ## Sort directed graph by timing
@@ -222,7 +220,9 @@ def sort_graph(graph):
         target = edge[2]['target']
         DG.add_node(source, timbre = nodes[source][1]['timbre'],
                     pitch = nodes[source][1]['pitch'])
-        DG.add_edge(source, target)
+        DG.add_edge(source, target, 
+                source=edge[0], target=edge[1],
+                duration=edge[2]['duration'])
     return DG
 
 ## Save png image of labeled, directed, earworm-type graph of mashup
@@ -322,3 +322,21 @@ def path_intersect(timbre_paths, pitch_paths):
         paths.append(res)
     return paths
 
+'''
+###################################CAPSULE HELPER FUNCTIONS##############################
+Functionality taken from capsule_support.py
+Used in Mashup.py
+'''
+
+LOUDNESS_THRESH = -8
+
+def equalize_tracks(tracks):
+    
+    def db_2_volume(loudness):
+        return (1.0 - LOUDNESS_THRESH * (LOUDNESS_THRESH - loudness) / 100.0)
+    
+    for track in tracks:
+        loudness = track.analysis.loudness
+        track.gain = db_2_volume(loudness)
+    
+    return tracks

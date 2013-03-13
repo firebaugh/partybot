@@ -45,15 +45,17 @@ class Song:
 
     def __init__(self, mp3_filename, recompute = False, verbose = False):
         self.mp3_filename = mp3_filename
-        self.mp3_name = split(lower(self.mp3_filename), '.mp3')[0]
-        self.graph_filename = self.mp3_name+".graph"
-        self.graph = self.run(recompute, verbose)
+        self.mp3_path = split(lower(self.mp3_filename), '.mp3')[0]
+        self.mp3_name = split(self.mp3_path, '/').pop()
+        self.graph_filename = self.mp3_path+".graph"
+        self.graph = None
         self.track = None # Echo Nest track
+        self.run(recompute, verbose)
 
     def run(self, recompute = False, verbose = False): 
         if verbose:  print("Probing for pre-existing graph %s..." % self.graph_filename)
         if self.load_graph(self.graph_filename) is False or recompute is True:
-            if verbose: print("Computing graph for track %s..." % self.mp3_name)
+            if verbose: print("Computing graph for track %s..." % self.mp3_path)
             self.graph = self.compute_graph(verbose)
             if verbose: print("Writing computed graph out to file %s..." % self.graph_filename)
             self.write_graph(self.graph_filename)
@@ -67,11 +69,11 @@ class Song:
             f.close()
 
             # num node lines, num edge lines
+            # TODO track analysis data
             n,e = lines[0].split(" ")
             n = (int(n)*3+1)
             e = int(e) + n
-        
-            # nodes: (node_index, {'timbre', 'pitch'})
+            # NODES: (node_index, {'timbre', 'pitch'})
             nodes = []
             for i in range(1,n,3):
                 features = {}
@@ -80,12 +82,13 @@ class Song:
                 features['timbre'] = [float(j) for j in timbre]
                 features['pitch'] = [float(k) for k in pitch]
                 nodes.append( (int(lines[i]),features) )
-            # edges: (source_node_index, destination_node_index)
+            # EDGES: (source_node_index, target_node_index
+            #           {'duration','source','target'})
             edges = []
             for j in range(n+1,e,2):
-                edge = lines[j].split(" ")
-                edges.append( (int(edge[0]), int(edge[1])) )
-
+                e = lines[j].split(" ")
+                edges.append( (int(e[0]), int(e[1]), {'duration': float(e[2]), 
+                    'source': float(e[3]), 'target': float(e[4])}) ) 
             # make digraph
             self.graph = nx.DiGraph()
             self.graph.add_nodes_from(nodes)
@@ -117,14 +120,12 @@ class Song:
             f.write(" ".join(str(j) for j in d['pitch']))
             f.write("\n")
         # write edge data out to file
-        f.write("\n".join( (str(s)+" "+str(t)) for s,t in self.graph.edges_iter() ))
+        for s,t,d in self.graph.edges_iter(data=True):
+            f.write(" ".join([str(s),str(t),
+                str(d['duration']),str(d['source']),str(d['target'])]))
+            f.write("\n")
         f.close()
 
-    def cross(self, other, beat=None):
-        if beat == None:
-            if self.track == None: self.load_track()
-            beat = self.track
-                
     def render(self, mp3_filename):
         # Check that we have loaded track from Echo Nest
         if self.track == None:
@@ -156,7 +157,7 @@ def main():
     render = options.render
 
     song = Song(args[0], recompute, verbose)
-    if render: song.render(song.mp3_name+"-out.mp3")
+    if render: song.render(song.mp3_path+"-out.mp3")
 
     return 1
 

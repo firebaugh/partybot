@@ -23,14 +23,14 @@ config.ECHO_NEST_API_KEY = "TTAPZNVYMGG5KQBJI"
 
 from optparse import OptionParser
 import sys
-from string import split
 from itertools import combinations
 
-from echonest.action import Playback, Jump, Crossfade, Crossmatch, render, display_actions
+from echonest.action import Playback, Jump, Crossfade, Crossmatch, render
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
 from alignment_support import alignment_labeling
 from genetic_support import genetic_labeling
+from earworm_support import equalize_tracks
 
 ###############################--MASHUP CLASS--##################################
 
@@ -41,6 +41,7 @@ class Mashup:
         mashup = graph of input mashup
         sources = graphs of input source songs
         labeled = graph of labeled mashup
+        crossmatch = crossmatch all combinations of source songs
         recompute = force recompute graphs for tracks
         verbose = print results on screen
     '''
@@ -51,52 +52,55 @@ class Mashup:
         self.sources = [Song(s, recompute, verbose) for s in source_filenames]
         if crossmatch:
             if verbose: print("Crossmatching sources...")
-            self.crossmatch_sources(verbose)
+            self.crossmatch_sources(recompute, verbose)
         self.labeled = None
 
     '''
     Crossmatch pairs of sources and add them to sources list
     '''
-    def crossmatch_sources(self, verbose=False):
+    def crossmatch_sources(self, recompute=False, verbose=False):
+        #[(start,duration),...] by timing rather than node index
+        def to_tuples(graph):
+            return [(d['source'],d['duration']) for s,t,d in graph.edges_iter(data=True)]
+
+        #for all combinations of source songs
         for pair in combinations(self.sources, 2):
-            #get song name info
-            s1_path = split(pair[0].mp3_name, "/")
-            s2_path = split(pair[1].mp3_name, "/")
-            s1_name = s1_path[len(s1_path)-1]
-            s2_name = s2_path[len(s2_path)-1]
-            s1_s2 = pair[0].mp3_name+"-"+s2_name+"-cross.mp3"
-            s2_s1 = pair[1].mp3_name+"-"+s1_name+"-cross.mp3"
-            #get song node/length info
-            s1_nodes = pair[0].graph.nodes()
-            s2_nodes = pair[1].graph.nodes()
-            if len(s1_nodes) > len(s2_nodes):
-                s1_nodes = s1_nodes[:len(s2_nodes)]
-            elif len(s2_nodes) > len(s1_nodes):
-                s2_nodes = s2_nodes[:len(s1_nodes)]
+            #get crossmatch filename and beats lists
+            s1_s2 = "-".join([pair[0].mp3_path,pair[1].mp3_name,"cross.mp3"])
+            s2_s1 = "-".join([pair[1].mp3_path,pair[0].mp3_name,"cross.mp3"])
+            s1_beats, s2_beats = to_tuples(pair[0].graph), to_tuples(pair[1].graph)
+            #use length of min source
+            if len(s1_beats) > len(s2_beats):
+                s1_beats = s1_beats[:len(s2_beats)]
+            elif len(s2_beats) > len(s1_beats):
+                s2_beats = s2_beats[:len(s1_beats)]
 
-            print(s1_nodes, s2_nodes)
-
-            #check is crossmatch song exists
+            #check if crossmatch mp3 exists
             try:
                 f = open(s1_s2)
                 f.close()
-                if verbose: print("Found crossmatch %s" % s1_s2)
+                if verbose: print("Found precomputed crossmatch %s" % s1_s2)
+                if recompute: raise Exception()
                 self.sources.append(Song(s1_s2))
             except:
                 try:
                     f = open(s2_s1)
                     f.close()
-                    if verbose: print("Found crossmatch %s" % s2_s1)
+                    if verbose: print("Found precomputed crossmatch %s" % s2_s1)
+                    if recompute: raise Exception()
                     self.sources.append(Song(s2_s1))
-                #RENDER
+                #RENDER new crossmatch mp3
                 except:
-                    if verbose: print("Found no precomputed crossmatches.")
+                    if verbose and not recompute: print("Found no precomputed crossmatches.")
+                    if verbose and recompute: print("Recomputing crossmatches...")
                     #load tracks
                     if pair[0].track == None: pair[0].load_track()
                     if pair[1].track == None: pair[1].load_track()
-                    tracks = (pair[0].track, pair[1].track)
-                    lists = (s1_nodes, s2_nodes)
-                    render([Crossmatch(tracks,lists)],s1_s2)
+                    #equalize tracks
+                    #TODO beat match to mashup tempo
+                    pair[0].track, pair[1].track = equalize_tracks([pair[0].track,pair[1].track])
+                    if verbose: print("Rendering crossmatch %s..." % s1_s2)
+                    render([Crossmatch( (pair[0].track,pair[1].track), (s1_beats,s2_beats) )], s1_s2) 
                     self.sources.append(Song(s1_s2))
 
 
@@ -140,7 +144,7 @@ class Mashup:
 
         actions = get_actions(self.labeled, source_dict, verbose)
         
-        filename = self.mashup.mp3_name+"-"+algorithm+"-reconstructed.mp3"
+        filename = self.mashup.mp3_path+"-"+algorithm+"-reconstructed.mp3"
         render(actions, filename)
        
     '''

@@ -1,10 +1,9 @@
 TO DO:
-- reconstruction
-- visualize population (fitness and type in case of duplicates)
 - cross over source song, beat match to mashup (since we have that power :D)
-- local hill climbing
+- force recompute crossmatches
+- write/load track analysis data to/from file
 - batch script
-- distribute
+- local hill climbing
 
 QUESTIONS:
 - use sigma scaling then weighted random choice?

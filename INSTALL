@@ -1,7 +1,19 @@
-python 2.5-2.7
-ffmpeg:
-    http://www.vimp.com/en/documentation-faq-article/items/howto-compile-ffmpeg-for-ubuntu-and-debian.html
-echo nest
-networkx
-install locally:
+DEPENDENCIES:
+    python 2.5-2.7
+    ffmpeg:
+        http://getasysadmin.com/2011/10/install-ffmpeg-ubuntu-10-04/
+        https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
+        http://www.vimp.com/en/documentation-faq-article/items/howto-compile-ffmpeg-for-ubuntu-and-debian.html
+        http://wiki.razuna.com/display/ecp/FFmpeg+Installation+for+Ubuntu#FFmpegInstallationforUbuntu-Installlibvpx
+    echo nest:
+        git clone https://github.com/echonest/pyechonest.git
+        python setup.py build
+        python setup.install
+    networkx:
+        https://github.com/networkx/networkx.git
+        python setup.py install
+
+INSTALLING LOCALLY:
     http://isezen.com/2011/09/02/how-to-install-locally-python-on-linux-home-directory/
+    ./configure --prefix=$HOME/installs
+    python setup.py install --user
