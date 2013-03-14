@@ -1,0 +1,93 @@
+#mutation=0.1
+nohup nice python Mashup.py -frp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-1 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-1.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-2 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-2.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-3 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-3.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-4 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-4.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-5 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-5.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-6 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-6.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-7 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-7.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-8 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-8.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-9 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-9.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-10 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-10-10.dat
+#
+#mutation=0.2
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-1 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-1.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-2 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-2.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-3 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-3.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-4 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-4.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-5 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-5.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-6 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-6.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-7 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-7.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-8 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-8.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-9 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-9.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-10 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-20-10.dat
+#
+#mutation=0.3
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-1 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-1.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-2 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-2.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-3 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-3.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-4 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-4.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-5 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-5.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-6 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-6.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-7 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-7.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-8 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-8.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-9 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-9.dat
+#
+nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-10 mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall.mp3 mashups/bee-gees-vs-floyd/stayin-alive.mp3 mashups/bee-gees-vs-floyd/another-brick-in-the-wall.mp3
+nohup nice python report.py mashups/bee-gees-vs-floyd/stayin-alive-in-the-wall-30-10.dat
+

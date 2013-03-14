@@ -172,7 +172,7 @@ def main():
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
     parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
     parser.add_option("-r", "--render", action="store_true", help="reconstruct mashup using source songs")
-    parser.add_option("-p", "--plot", dest="plot", help="plot GA's progress to .dat file PLOT", metavar="PLOT")
+    parser.add_option("-p", "--plot", dest="plot", help="plot GA's progress to PLOT.dat", metavar="PLOT")
     parser.add_option("-s", "--size", dest="size", help="SIZE of GA population", metavar="SIZE")
     parser.add_option("-g", "--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
     parser.add_option("-c", "--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")

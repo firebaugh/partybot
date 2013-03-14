@@ -1,17 +1,14 @@
 TO DO:
-- cross over source song, beat match to mashup (since we have that power :D)
-- force recompute crossmatches
-- write/load track analysis data to/from file
+- graph of segments scores
+- local hill climbing - for each individual after crossover mutation, slide back and forth with max times and pick best
 - batch script
-- local hill climbing
+- distribute
 
-QUESTIONS:
-- use sigma scaling then weighted random choice?
-- choose mate population of population size?
-- choose distinct mates?
-- repair duplicate children?
-- normalize with sigma scaling?
-- maximize fitness when fitness = 1 - feature distance
-- crossover rate?
-- re-randomize unsustainable individuals with same # of transitions?
-- add next pop to curr pop and select top based on *unscaled* fitness?
+- LATER (ICA?): cross over source song, beat match to mashup (since we have that power :D)
+
+EVALUATION (oblative study of GA):
+- try ranking vs. sigma scaling
+- try with multiple mutation rates/cross over rates
+- 10 diff runs of GA
+- SMOOTH with exponentially weighted average:
+    avg_t = alpha*avg_t-1 + (1-alpha)*x_t

@@ -241,10 +241,12 @@ class Environment(object):
         self.mutation_rate = mutation_rate
         self.maxgenerations = maxgenerations
         self.generation = 0
+        self.curr_average = 0
+        self.past_average = self.get_average()
         #user commands for verbose and plot
         self.verbose = verbose
-        if plot == None: self.plot = False
-        else: self.plot = plot
+        if plot: self.plot = False
+        else: self.plot = plot+".dat"
         if self.plot:
             f = open(self.plot, "w")
             f.write(
@@ -254,8 +256,8 @@ class Environment(object):
 # crossover rate = %f
 # mutation rate = %f
 # optimum = %f
-# --------------------------------------------
-# GENERATION   BEST'S FITNESS
+# -----------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS
 '''
                     % (self.mashup.mashup.mp3_name, self.size, self.maxgenerations,
                         self.crossover_rate, self.mutation_rate, self.optimum))
@@ -268,6 +270,9 @@ class Environment(object):
         return locals()
     best = property(**best())
 
+    def get_average(self):
+        return np.mean([individual.fitness for individual in self.population])
+
     def genpop(self):
         return [Individual(self.mashup) for individual in range(self.size)]
 
@@ -277,14 +282,15 @@ class Environment(object):
         return self._finalize()
 
     def _goal(self):
-        return self.generation > self.maxgenerations or \
-                self.best.fitness == self.optimum
+        return abs(self.past_average - self.curr_average) <= self.optimum
 
     def step(self):
         self._crossover()
         self.generation += 1
+        self.curr_average = self.get_average()
         if self.verbose: self.report()
         if self.plot: self._plot()
+        self.past_average = self.curr_average
 
     def _crossover(self):
         mates = self._select() #select possible parents using SUS with sigma scaling
@@ -368,7 +374,7 @@ class Environment(object):
 
     def _plot(self):
         f = open(self.plot, "a")
-        f.write("%s\t%s\n" % (self.generation, self.best.fitness))
+        f.write("%d\t%f\t%f\n" % (self.generation, self.best.fitness, self.curr_average))
         f.close()
     
     def _finalize(self):
