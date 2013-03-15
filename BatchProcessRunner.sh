@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ##
 ## batchProcessRunner.sh <file of commands to execute>  <number of concurrent processes>
 ##
