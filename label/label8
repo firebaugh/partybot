@@ -1,93 +1,93 @@
 #mutation=0.1
-nohup nice python Mashup.py -frp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-1 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -fvrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-1 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-1.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-2 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-2 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-2.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-3 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-3 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-3.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-4 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-4 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-4.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-5 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-5 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-5.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-6 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-6 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-6.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-7 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-7 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-7.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-8 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-8 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-8.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-9 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-9 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-9.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-10 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-10 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-10-10.dat
 #
 #mutation=0.2
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-1 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-1 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-1.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-2 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-2 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-2.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-3 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-3 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-3.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-4 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-4 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-4.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-5 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-5 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-5.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-6 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-6 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-6.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-7 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-7 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-7.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-8 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-8 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-8.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-9 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-9 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-9.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-10 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-10 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-20-10.dat
 #
 #mutation=0.3
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-1 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-1 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-1.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-2 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-2 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-2.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-3 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-3 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-3.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-4 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-4 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-4.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-5 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-5 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-5.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-6 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-6 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-6.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-7 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-7 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-7.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-8 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-8 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-8.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-9 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-9 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-9.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-10 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-10 mashups/justin-bieber-vs-flo-rida/boyfriend-whistle.mp3 mashups/justin-bieber-vs-flo-rida/boyfriend.mp3 mashups/justin-bieber-vs-flo-rida/whistle.mp3
 nohup nice python report.py mashups/justin-bieber-vs-flo-rida/boyfriend-whistle-30-10.dat
 

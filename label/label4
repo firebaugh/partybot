@@ -1,93 +1,93 @@
 #mutation=0.1
-nohup nice python Mashup.py -frp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-1 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -fvrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-1 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-1.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-2 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-2 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-2.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-3 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-3 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-3.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-4 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-4 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-4.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-5 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-5 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-5.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-6 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-6 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-6.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-7 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-7 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-7.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-8 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-8 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-8.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-9 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-9 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-9.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-10 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.1 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-10-10 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-10-10.dat
 #
 #mutation=0.2
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-1 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-1 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-1.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-2 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-2 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-2.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-3 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-3 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-3.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-4 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-4 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-4.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-5 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-5 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-5.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-6 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-6 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-6.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-7 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-7 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-7.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-8 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-8 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-8.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-9 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-9 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-9.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-10 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.2 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-20-10 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-20-10.dat
 #
 #mutation=0.3
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-1 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-1 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-1.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-2 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-2 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-2.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-3 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-3 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-3.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-4 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-4 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-4.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-5 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-5 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-5.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-6 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-6 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-6.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-7 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-7 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-7.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-8 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-8 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-8.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-9 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-9 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-9.dat
 #
-nohup nice python Mashup.py -rp --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-10 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
+nohup nice python Mashup.py -vrpe --label=GA --size=300 --optimum=0.01 --mutation=0.3 --plot=mashups/beatles-vs-oasis/dont-let-it-be-anger-30-10 mashups/beatles-vs-oasis/dont-let-it-be-anger.mp3 mashups/beatles-vs-oasis/dont-look-back-in-anger.mp3 mashups/beatles-vs-oasis/let-it-be.mp3
 nohup nice python report.py mashups/beatles-vs-oasis/dont-let-it-be-anger-30-10.dat
 

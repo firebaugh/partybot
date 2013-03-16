@@ -227,12 +227,13 @@ class Individual(object):
 
 class Environment(object):
     def __init__(self, mashup, population=None, size=100, maxgenerations=100,
-            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, 
+            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, converge=True, 
             verbose=False, plot=None):
         #env and pop setup
         self.mashup = mashup
         self.size = size
         self.optimum = optimum
+        self.converge = converge
         self.population = population or self.genpop()
         self.cache = {} #{(mashup_node, source_name, source_node): feature_distance}
         for individual in self.population:
@@ -282,7 +283,10 @@ class Environment(object):
         return self._finalize()
 
     def _goal(self):
-        return abs(self.past_average - self.curr_average) <= self.optimum
+        if self.converge:
+            return abs(self.past_average - self.curr_average) <= self.optimum
+        else:
+            return self.generation >= self.maxgenerations
 
     def step(self):
         self._crossover()
@@ -293,7 +297,10 @@ class Environment(object):
         self.past_average = self.curr_average
 
     def _crossover(self):
-        mates = self._select() #select possible parents using SUS with sigma scaling
+        mates = self._select()
+        #if mate pool < third of pop size, randomize
+        while len(set(mates)) < self.size/2:
+            mates = self._randomize(mates)
         next_population = [self.best.copy()]
         while len(next_population) < self.size:
             index = random.randrange(len(mates))
@@ -365,6 +372,18 @@ class Environment(object):
         if random.random() < self.mutation_rate:
             self.cache = individual.mutate(self.cache)
 
+    #randomize the population
+    #leave best
+    #use same # of transitions
+    def _randomize(self, population):
+       population.sort()
+       new_population = [population[0]]
+       for i in range(len(population)-1):
+           if random.random() > 0.5:
+               population[i].sequence = population[i].genseq()
+           new_population.append(population[i])
+       return new_population
+
     def report(self):
         print("="*70)
         print("generation: %s" % self.generation)
@@ -391,9 +410,9 @@ def feature_distance(n1, n2):
 
 
 def genetic_labeling(mashup, verbose=False, plot=None,
-        size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0):
+        size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0, converge=True):
     env = Environment(mashup, None, size, maxgenerations, 
-            crossover_rate, mutation_rate, optimum, 
+            crossover_rate, mutation_rate, optimum, converge, 
             verbose, plot)
     return env.run()
 

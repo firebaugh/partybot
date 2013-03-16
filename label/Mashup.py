@@ -110,7 +110,7 @@ class Mashup:
         "GA" = genetic algorithm
     '''
     def label(self, algorithm="GA", verbose=False, plot=None,
-            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0):
+            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, converge=True):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
             self.labeled = alignment_labeling(self, verbose)
@@ -118,7 +118,7 @@ class Mashup:
         else:
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
             self.labeled = genetic_labeling(self, verbose, plot, 
-                    size, maxgens, crossover, mutation, optimum)
+                    size, maxgens, crossover, mutation, optimum, converge)
             return self.labeled
     
     '''
@@ -178,6 +178,7 @@ def main():
     parser.add_option("-c", "--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")
     parser.add_option("-m", "--mutation", dest="mutation", help="MUTATION rate for GA", metavar="MUTATION")
     parser.add_option("-o", "--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
+    parser.add_option("-e", "--converge", action="store_true", help="run GA until convergence rather than max generations GEN")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         print("Enter mashup and source song(s).\n")
@@ -195,6 +196,7 @@ def main():
     label = options.algorithm
     render = options.render
     plot = options.plot
+    converge = options.converge
     #size
     if options.size: size = int(options.size)
     else: size = 300
@@ -214,7 +216,7 @@ def main():
     
     # LABEL Mashup using sequence alignment or GA
     if label:
-        mashup.label(label, verbose, plot, size, maxgens, crossover, mutation, optimum)
+        mashup.label(label, verbose, plot, size, maxgens, crossover, mutation, optimum, converge)
     
     # RECONSTRUCT mashup using labeled source song segments
     if render:
