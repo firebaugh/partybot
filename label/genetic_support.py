@@ -246,7 +246,7 @@ class Environment(object):
         self.past_average = self.get_average()
         #user commands for verbose and plot
         self.verbose = verbose
-        if plot: self.plot = False
+        if plot == True: self.plot = False
         else: self.plot = plot+".dat"
         if self.plot:
             f = open(self.plot, "w")
