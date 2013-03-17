@@ -9,15 +9,7 @@ Emails concise update of batch's progress.
 from optparse import OptionParser
 import smtplib, string
 
-def main():
-    parser = OptionParser(usage="usage: %prog results.dat")
-    (options, args) = parser.parse_args()
-    # get .dat filename
-    if len(args) < 1:
-        parser.print_help()
-        exit(0)
-    filename = args[0]
-
+def email(filename, email="ceclabaugh@gmail.com"):
     # read .dat
     try:
         f = open(filename, "r")
@@ -33,7 +25,7 @@ def main():
 
     # create email
     FROM = 'hell.week.help@gmail.com'
-    TO = ['ceclabaugh@gmail.com']
+    TO = [email]
     USR = 'hell.week.help'
     PWD = 'HelpMePlease!'
     SUBJECT = "GA Progress UPDATE: "+subject
@@ -54,6 +46,16 @@ def main():
     server.login( USR, PWD )
     server.sendmail(FROM, TO, BODY)
     server.close()
+
+def main():
+    parser = OptionParser(usage="usage: %prog results.dat")
+    (options, args) = parser.parse_args()
+    # get .dat filename
+    if len(args) < 1:
+        parser.print_help()
+        exit(0)
+    filename = args[0]
+    email(filename)
 
 
 if __name__ == "__main__":
