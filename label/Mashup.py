@@ -31,6 +31,7 @@ from Song import Song
 from alignment_support import alignment_labeling
 from genetic_support import genetic_labeling
 from earworm_support import equalize_tracks
+from report import email
 
 ###############################--MASHUP CLASS--##################################
 
@@ -109,7 +110,7 @@ class Mashup:
         "SA" = sequence alignment
         "GA" = genetic algorithm
     '''
-    def label(self, algorithm="GA", verbose=False, plot=None,
+    def label(self, algorithm="GA", verbose=False, out=None,
             size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, converge=True):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
@@ -117,7 +118,7 @@ class Mashup:
             return self.labeled
         else:
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
-            self.labeled = genetic_labeling(self, verbose, plot, 
+            self.labeled = genetic_labeling(self, verbose, out, 
                     size, maxgens, crossover, mutation, optimum, converge)
             return self.labeled
     
@@ -132,7 +133,7 @@ class Mashup:
     '''
     Render reconstruction of mashup using labeled segments of sources
     '''
-    def reconstruct(self, algorithm, verbose=False):
+    def reconstruct(self, out, algorithm, verbose=False):
         # Check that we have loaded track from Echo Nest
         # Create source dictionary
         source_dict = {}
@@ -142,11 +143,51 @@ class Mashup:
                 s.load_track(verbose)
             source_dict[s.mp3_name] = s.track
 
+        if verbose: print("Calculatiing actions in reconstructed mashup...")
         actions = get_actions(self.labeled, source_dict, verbose)
         
-        filename = self.mashup.mp3_path+"-"+algorithm+"-reconstructed.mp3"
+        filename = out+"-"+algorithm+"-reconstructed.mp3"
+        if verbose: print("Rendering reconstructed mashup...")
         render(actions, filename)
-       
+    
+    '''
+    Write reconstruction out to 2 files: OUT.graph and OUT.segs
+    .graph contains normal graph of mashup
+    .segs constains: segment# .graph_start_node .graph_stop_node
+    '''
+    def write_graph(self, out, verbose=False):
+        graph_filename = out+".graph"
+        segs_filename = out+".segs"
+
+        if verbose: print("Writing out .graph and .segs files for reconstructed mashup...")
+        gf = open(graph_filename, "w")
+        sf = open(segs_filename, "w")
+        gf.write(str(self.labeled.number_of_nodes())+" "+str(self.labeled.number_of_edges())+"\n")
+        # write node data out to file
+        curr_seg = 0
+        start = 0
+        prev = self.labeled.node[0]['label'][1]-1
+        for n,d in self.labeled.nodes_iter(data=True):
+            gf.write(str(n)+"\n")
+            gf.write(" ".join(str(i) for i in d['timbre']))
+            gf.write("\n")
+            gf.write(" ".join(str(j) for j in d['pitch']))
+            gf.write("\n")
+            if d['label'][1] != prev+1:
+                sf.write(" ".join([str(curr_seg), str(start), str(n-1)]))
+                sf.write("\n")
+                start = n
+                curr_seg += 1
+            prev = d['label'][1]
+
+        # write edge data out to file
+        for s,t,d in self.labeled.edges_iter(data=True):
+            gf.write(" ".join([str(s),str(t),
+                str(d['duration']),str(d['source']),str(d['target'])]))
+            gf.write("\n")
+        gf.close()
+        sf.close()
+
     '''
     Print mashup, sources, and labeled mashup to screen
     '''
@@ -171,14 +212,13 @@ def main():
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
     parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
-    parser.add_option("-r", "--render", action="store_true", help="reconstruct mashup using source songs")
-    parser.add_option("-p", "--plot", dest="plot", help="plot GA's progress to PLOT.dat", metavar="PLOT")
     parser.add_option("-s", "--size", dest="size", help="SIZE of GA population", metavar="SIZE")
     parser.add_option("-g", "--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
     parser.add_option("-c", "--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")
     parser.add_option("-m", "--mutation", dest="mutation", help="MUTATION rate for GA", metavar="MUTATION")
-    parser.add_option("-o", "--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
+    parser.add_option("-p", "--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
     parser.add_option("-e", "--converge", action="store_true", help="run GA until convergence rather than max generations GEN")
+    parser.add_option("-o", "--out", dest="out_file", help="write plot of GA's progress to OUT.dat, reconstruction of mashup to OUT-ALGO-reconstructed.mp3, graph of reconstruction to OUT.graph, and corresponding segments of reconstruction to OUT.segs")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         print("Enter mashup and source song(s).\n")
@@ -194,8 +234,7 @@ def main():
     recompute = options.force
     verbose = options.verbose
     label = options.algorithm
-    render = options.render
-    plot = options.plot
+    out = options.out_file
     converge = options.converge
     #size
     if options.size: size = int(options.size)
@@ -213,17 +252,26 @@ def main():
 
     # CREATE Mashup data structure
     mashup = Mashup(args[0], args[1:], crossmatch, recompute, verbose)
-    
+    if verbose: print("Created mashup data structure.")
+
     # LABEL Mashup using sequence alignment or GA
     if label:
-        mashup.label(label, verbose, plot, size, maxgens, crossover, mutation, optimum, converge)
+        mashup.label(label, verbose, out, size, maxgens, crossover, mutation, optimum, converge)
+        if verbose: print("Completed labeling.")
+
+    # REPORT results
+    if out:
+        if verbose: print("Sending out email notification...")
+        email(out+'.dat')
     
     # RECONSTRUCT mashup using labeled source song segments
     if render:
-        if label:
-            mashup.reconstruct(label,verbose)
+        if label and out:
+            mashup.reconstruct(out,label,verbose)
+            mashup.write_graph(out,verbose)
+            if verbose: print("Completed reconstruction.")
         else:
-            print("Enter labeling option to use render option.")
+            print("Enter labeling option and out option to render and write out reconstructed mashup.")
             parser.print_help()
             return -1
 
@@ -248,9 +296,7 @@ def get_actions(labeled_mashup, sources, verbose=False):
     curr_beat = labeled_mashup.node[0]['label'][1]-1
     for n,d in labeled_mashup.nodes_iter(data=True):
         # same song
-        print(n,d)
         if curr_song == d['label'][0]:
-            if verbose: print("SAME %s and %s" % (curr_song, d['label'][0]))
             # jump within song
             if curr_beat != d['label'][1]-1:
                 if verbose: print("JUMP %s %d -> %d" % (curr_song, curr_beat, d['label'][1]))

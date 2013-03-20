@@ -1,14 +1,9 @@
-# GA for labeling mashup transitionals/nirvana-stripes-5
-# size = 10
-# max generations = 5
+# GA for labeling mashup nirvana-stripes-5
+# size = 100
+# max generations = 1
 # crossover rate = 0.900000
 # mutation rate = 0.200000
 # optimum = 0.000000
-# --------------------------------------------
-# GENERATION   BEST'S FITNESS
-1	-91.5272400261
-2	-91.5272400261
-3	-89.8662664205
-4	-89.5463435293
-5	-89.3564616037
-6	-88.3874965262
+# -----------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS
+1	-90.439604	-93.027395

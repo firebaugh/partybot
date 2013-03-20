@@ -107,6 +107,7 @@ class Individual(object):
                     # get min euclidean distance
                     if score < min_score:
                         min_score = score
+                        #{ (mashup_start, mashup_stop): (source_name, (source_start, source_stop)), ... }
                         segs[seg] = (source.mp3_name, (node, node+leng))
             
             tot_score += min_score
@@ -197,18 +198,21 @@ class Individual(object):
         return (fitness, sequence, segs), cache
 
     # Label mashup graph with closest fit song segments
-    def _finalize(self, cache):
-        # {mashup_node: {timbre: [], pitch: [], label: (song_mp3_name, song_node)}, ...}
+    def _finalize(self, cache, verbose):
+        # {mashup_node: {timbre: [], pitch: [], label: (song_mp3_name, song_node, segment_number)}, ...}
+        if verbose: print("Finalizing...")
         labeled = self.mashup.mashup.graph.to_directed()
         self._evaluate(cache)
-       
+      
+        s = 0
         for t in self.segs.keys():
             label = self.segs[t][0] #song name
             seg = self.segs[t][1] #song segment
             j = 0
             for i in range(t[0], t[1]+1):
-                labeled.node[i]['label'] = (label, seg[0]+j)
+                labeled.node[i]['label'] = (label, seg[0]+j, s)
                 j += 1
+            s += 1
 
         return labeled
 
@@ -299,16 +303,16 @@ class Environment(object):
     def _crossover(self):
         mates = self._select()
         #if mate pool < third of pop size, randomize
-        while len(set(mates)) < self.size/2:
-            mates = self._randomize(mates)
+        #while len(set(mates)) < self.size/2:
+        #    mates = self._randomize(mates)
         next_population = [self.best.copy()]
         while len(next_population) < self.size:
             index = random.randrange(len(mates))
             mate1 = mates[index]
             if random.random() < self.crossover_rate:
                 mate2 = random.choice(mates) 
-                while mate2 == mate1:
-                    mate2 = random.choice(mates) #TODO is this right?
+                #while mate2 == mate1:
+                #    mate2 = random.choice(mates) #TODO is this right?
                 offspring = mate1.crossover(mate2)
             else:
                 offspring = [mate1.copy()]
@@ -397,7 +401,7 @@ class Environment(object):
         f.close()
     
     def _finalize(self):
-        return self.best._finalize(self.cache)
+        return self.best._finalize(self.cache, self.verbose)
 
 # Sum feature distance between two nodes
 # Nodes have two feature vectors, pitch and timbre, each of 12 floats
