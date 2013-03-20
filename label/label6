@@ -3,7 +3,7 @@ nohup nice python Mashup.py -fve --label=GA --size=300 --optimum=0.01 --mutation
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-2 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-3 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-3 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-4 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
@@ -24,7 +24,7 @@ nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-2 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-3 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-3 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-4 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
@@ -45,7 +45,7 @@ nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-2 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-3 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-3 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-4 mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 mashups/britney-vs-rihanna/till-the-world-ends.mp3 mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
 #

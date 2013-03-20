@@ -157,13 +157,19 @@ class Individual(object):
     #   - Delete a random transition
     #   - Move a random transition left or right
     def mutate(self, cache):
-        transition = random.choice(self.transitions())
-        add, cache = self._add(cache)
-        delete, cache = self._delete(transition, cache)
-        move, cache = self._move(transition, random.choice( ("l","r") ), cache)
-        # use optimal mutation
-        self.fitness, self.sequence, self.segs = max(add, delete, move)
-        return cache
+        transitions = self.transitions()
+	if len(transitions) < 1:
+             add, cache = self._add(cache)
+             self.fitness, self.sequence, self.segs = add
+             return cache
+	else:
+             transition = random.choice(transitions)
+             add, cache = self._add(cache)
+             delete, cache = self._delete(transition, cache)
+             move, cache = self._move(transition, random.choice( ("l","r") ), cache)
+             # use optimal mutation
+             self.fitness, self.sequence, self.segs = max(add, delete, move)
+             return cache
        
     def _add(self, cache):
         #add to non transition locations

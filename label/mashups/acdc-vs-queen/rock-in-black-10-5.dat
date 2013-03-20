@@ -1,0 +1,9 @@
+# GA for labeling mashup rock-in-black
+# size = 300
+# max generations = 100
+# crossover rate = 0.900000
+# mutation rate = 0.100000
+# optimum = 0.010000
+# -----------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS
+1	-55.722033	-60.645117

@@ -25,7 +25,7 @@ from optparse import OptionParser
 import sys
 from itertools import combinations
 
-from echonest.action import Playback, Jump, Crossfade, Crossmatch, render
+from echonest.remix.action import Playback, Jump, Crossfade, Crossmatch, render
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
 from alignment_support import alignment_labeling
@@ -145,7 +145,8 @@ class Mashup:
 
         if verbose: print("Calculatiing actions in reconstructed mashup...")
         actions = get_actions(self.labeled, source_dict, verbose)
-        
+       	if verbose: print("Found actions: %s" % actions)
+ 
         filename = out+"-"+algorithm+"-reconstructed.mp3"
         if verbose: print("Rendering reconstructed mashup...")
         render(actions, filename)
@@ -163,10 +164,11 @@ class Mashup:
         gf = open(graph_filename, "w")
         sf = open(segs_filename, "w")
         gf.write(str(self.labeled.number_of_nodes())+" "+str(self.labeled.number_of_edges())+"\n")
-        # write node data out to file
+	# write node data out to file
         curr_seg = 0
         start = 0
         prev = self.labeled.node[0]['label'][1]-1
+	prev_song = self.labeled.node[0]['label'][0]
         for n,d in self.labeled.nodes_iter(data=True):
             gf.write(str(n)+"\n")
             gf.write(" ".join(str(i) for i in d['timbre']))
@@ -174,10 +176,11 @@ class Mashup:
             gf.write(" ".join(str(j) for j in d['pitch']))
             gf.write("\n")
             if d['label'][1] != prev+1:
-                sf.write(" ".join([str(curr_seg), str(start), str(n-1)]))
+                sf.write(" ".join([str(curr_seg), prev_song, str(start), str(n-1)]))
                 sf.write("\n")
                 start = n
                 curr_seg += 1
+                prev_song = d['label'][0]
             prev = d['label'][1]
 
         # write edge data out to file

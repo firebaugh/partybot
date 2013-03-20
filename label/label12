@@ -3,7 +3,7 @@ nohup nice python Mashup.py -fve --label=GA --size=300 --optimum=0.01 --mutation
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-10-2 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-10-3 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-10-3 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-10-4 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
@@ -24,7 +24,7 @@ nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-20-2 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-20-3 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-20-3 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-20-4 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
@@ -45,7 +45,7 @@ nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-30-2 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-30-3 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-30-3 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes-30-4 mashups/nirvana-vs-white-stripes/nirvana-vs-white-stripes.mp3 mashups/nirvana-vs-white-stripes/seven-nation-army.mp3 mashups/nirvana-vs-white-stripes/smells-like-teen-spirit.mp3
 #

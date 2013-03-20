@@ -1,0 +1,9 @@
+en-ffmpeg -i "mashups/acdc-vs-snoop-dog/drop-it-like-its-in-black.mp3" -y -ac 2 -ar 44100 "/tmp/tmpSocsFY.wav"
+Computed MD5 of file is bbb9891aa32a7def0496c4b8d198c7cc
+Probing for existing analysis
+en-ffmpeg -i "mashups/acdc-vs-snoop-dog/back-in-black.mp3" -y -ac 2 -ar 44100 "/tmp/tmpeInNgR.wav"
+Computed MD5 of file is 34dae09b893f6e6e812c1e0812357d93
+Probing for existing analysis
+en-ffmpeg -i "mashups/acdc-vs-snoop-dog/drop-it-like-its-hot.mp3" -y -ac 2 -ar 44100 "/tmp/tmpyyNggj.wav"
+Computed MD5 of file is 29f5c9cb9b25930534564ac9738365a7
+Probing for existing analysis

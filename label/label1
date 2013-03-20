@@ -3,7 +3,7 @@ nohup nice python Mashup.py -fve --label=GA --size=300 --optimum=0.01 --mutation
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/acdc-vs-queen/rock-in-black-10-2 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.1 --out=mashups/acdc-vs-queen/rock-in-black-10-3 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/acdc-vs-queen/rock-in-black-10-3 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=mashups/acdc-vs-queen/rock-in-black-10-4 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
@@ -24,7 +24,7 @@ nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/acdc-vs-queen/rock-in-black-20-2 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.2 --out=mashups/acdc-vs-queen/rock-in-black-20-3 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/acdc-vs-queen/rock-in-black-20-3 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=mashups/acdc-vs-queen/rock-in-black-20-4 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
@@ -45,7 +45,7 @@ nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/acdc-vs-queen/rock-in-black-30-2 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
-nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0i.01 --mutation=0.3 --out=mashups/acdc-vs-queen/rock-in-black-30-3 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/acdc-vs-queen/rock-in-black-30-3 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
 nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=mashups/acdc-vs-queen/rock-in-black-30-4 mashups/acdc-vs-queen/rock-in-black.mp3 mashups/acdc-vs-queen/back-in-black.mp3 mashups/acdc-vs-queen/we-will-rock-you.mp3
 #
