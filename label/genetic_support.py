@@ -299,12 +299,12 @@ class Environment(object):
             return self.generation >= self.maxgenerations
 
     def step(self):
+        self.past_average = self.curr_average
         self._crossover()
         self.generation += 1
         self.curr_average = self.get_average()
         if self.verbose: self.report()
         if self.plot: self._plot()
-        self.past_average = self.curr_average
 
     def _crossover(self):
         mates = self._select()
