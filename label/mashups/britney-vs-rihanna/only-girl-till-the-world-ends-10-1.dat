@@ -1,0 +1,9 @@
+# GA for labeling mashup only-girl-till-the-world-ends
+# size = 300
+# max generations = 100
+# crossover rate = 0.900000
+# mutation rate = 0.100000
+# optimum = 0.010000
+# -----------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS
+1	-90.484657	-92.827923
