@@ -1,0 +1,33 @@
+#mutation=0.1
+nohup nice python Mashup.py -fve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-1 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-2 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-3 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-4 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-5 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-6 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-7 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-8 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-9 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=transitionals/beethoven-pink-2-10-10 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+#mutation=0.2
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-1 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-2 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-3 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-4 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-5 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-6 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-7 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-8 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-9 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=transitionals/beethoven-pink-2-20-10 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+#mutation=0.3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-1 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-2 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-3 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-4 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-5 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-6 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-7 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-8 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-9 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=transitionals/beethoven-pink-2-30-10 transitionals/beethoven-pink-2.mp3 transitionals/beethoven.mp3 transitional/pink.mp3

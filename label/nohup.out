@@ -1,31 +1,89 @@
-en-ffmpeg -i "mashups/acdc-vs-queen/rock-in-black.mp3"
-en-ffmpeg -y -i "mashups/acdc-vs-queen/rock-in-black.mp3" -ac 2 -ar 22050 "/tmp/tmps9F1NT.wav"
-Computed MD5 of file is 5327ce5ac1f9ec7772d6d9add4b95b0d
+en-ffmpeg -i "transitionals/beethoven-pink-1.mp3"
+en-ffmpeg -y -i "transitionals/beethoven-pink-1.mp3" -ac 2 -ar 44100 "/tmp/tmp5TkVzp.wav"
+Computed MD5 of file is 8c64ae0d87805704da90e684d4226717
 Probing for existing analysis
-en-ffmpeg -i "mashups/acdc-vs-queen/back-in-black.mp3"
-en-ffmpeg -y -i "mashups/acdc-vs-queen/back-in-black.mp3" -ac 2 -ar 22050 "/tmp/tmpqSaalI.wav"
-Computed MD5 of file is 34dae09b893f6e6e812c1e0812357d93
+en-ffmpeg -i "transitionals/beethoven.mp3"
+en-ffmpeg -y -i "transitionals/beethoven.mp3" -ac 2 -ar 44100 "/tmp/tmpRLHnFX.wav"
+Computed MD5 of file is 6393bd2a742c9445d4e16d08f6b330a1
 Probing for existing analysis
-en-ffmpeg -i "mashups/acdc-vs-queen/we-will-rock-you.mp3"
-en-ffmpeg -y -i "mashups/acdc-vs-queen/we-will-rock-you.mp3" -ac 2 -ar 44100 "/tmp/tmpeoQjM3.wav"
-Computed MD5 of file is e86c08c5c56c747042ad3a450f8a94e0
+Analysis not found. Uploading...
+en-ffmpeg -i "transitionals/beethoven.mp3"
+en-ffmpeg -y -i "transitionals/beethoven.mp3" -ac 2 -ar 44100 "/tmp/tmpWBZL56.wav"
+Computed MD5 of file is 6393bd2a742c9445d4e16d08f6b330a1
 Probing for existing analysis
-Probing for pre-existing graph mashups/acdc-vs-queen/rock-in-black.graph...
-Computing graph for track mashups/acdc-vs-queen/rock-in-black...
-Writing computed graph out to file mashups/acdc-vs-queen/rock-in-black.graph...
+en-ffmpeg -i "transitionals/pink.mp3"
+en-ffmpeg -y -i "transitionals/pink.mp3" -ac 2 -ar 44100 "/tmp/tmpgY9VJF.wav"
+en-ffmpeg -i "transitionals/pink.mp3"
+en-ffmpeg -y -i "transitionals/pink.mp3" -ac 2 -ar 44100 "/tmp/tmpwaUXuU.wav"
+Computed MD5 of file is c2fe3d15b9ecf7844124e9e1a6dc3f0c
+Probing for existing analysis
+Analysis not found. Uploading...
+Computed MD5 of file is c2fe3d15b9ecf7844124e9e1a6dc3f0c
+Probing for existing analysis
+Analysis not found. Uploading...
+Probing for pre-existing graph transitionals/beethoven-pink-1.graph...
 Created song graph.
-Probing for pre-existing graph mashups/acdc-vs-queen/back-in-black.graph...
-Computing graph for track mashups/acdc-vs-queen/back-in-black...
-Writing computed graph out to file mashups/acdc-vs-queen/back-in-black.graph...
+Probing for pre-existing graph transitionals/beethoven.graph...
+Computing graph for track transitionals/beethoven...
+Writing computed graph out to file transitionals/beethoven.graph...
 Created song graph.
-Probing for pre-existing graph mashups/acdc-vs-queen/we-will-rock-you.graph...
-Computing graph for track mashups/acdc-vs-queen/we-will-rock-you...
-Writing computed graph out to file mashups/acdc-vs-queen/we-will-rock-you.graph...
+Probing for pre-existing graph transitionals/pink.graph...
+Computing graph for track transitionals/pink...
+Writing computed graph out to file transitionals/pink.graph...
 Created song graph.
-Labeling rock-in-black using genetic algorithm...
-======================================================================
-generation: 0
-size: 300
-mean: -61.8615956467 
- std: 1.24378746135
-best: <Individual transitions="{(0, 81): ('back-in-black', (238, 319)), (82, 88): ('back-in-black', (47, 
+Created mashup data structure.
+Labeling beethoven-pink-1 using genetic algorithm...
+Traceback (most recent call last):
+  File "Mashup.py", line 320, in <module>
+    main()
+  File "Mashup.py", line 259, in main
+    mashup.label(label, verbose, out, size, maxgens, crossover, mutation, optimum, converge)
+  File "Mashup.py", line 122, in label
+    size, maxgens, crossover, mutation, optimum, converge)
+  File "/home/coral/partybot/label/genetic_support.py", line 420, in genetic_labeling
+    verbose, plot)
+  File "/home/coral/partybot/label/genetic_support.py", line 241, in __init__
+    self.population = population or self.genpop()
+  File "/home/coral/partybot/label/genetic_support.py", line 282, in genpop
+    return [Individual(self.mashup) for individual in range(self.size)]
+  File "/home/coral/partybot/label/genetic_support.py", line 26, in __init__
+    self.sequence = sequence or self.genseq()
+  File "/home/coral/partybot/label/genetic_support.py", line 55, in genseq
+    sequence[random.randrange(1, self.length-2)] = 1
+  File "/usr/lib/python2.7/random.py", line 217, in randrange
+    raise ValueError, "empty range for randrange() (%d,%d, %d)" % (istart, istop, width)
+ValueError: empty range for randrange() (1,-2, -3)
+Probing for pre-existing graph transitionals/beethoven-pink-1.graph...
+Computing graph for track transitionals/beethoven-pink-1...
+Writing computed graph out to file transitionals/beethoven-pink-1.graph...
+Created song graph.
+Probing for pre-existing graph transitionals/beethoven.graph...
+Computing graph for track transitionals/beethoven...
+Writing computed graph out to file transitionals/beethoven.graph...
+Created song graph.
+Probing for pre-existing graph transitionals/pink.graph...
+Computing graph for track transitionals/pink...
+Writing computed graph out to file transitionals/pink.graph...
+Created song graph.
+Created mashup data structure.
+Labeling beethoven-pink-1 using genetic algorithm...
+Traceback (most recent call last):
+  File "Mashup.py", line 320, in <module>
+    main()
+  File "Mashup.py", line 259, in main
+    mashup.label(label, verbose, out, size, maxgens, crossover, mutation, optimum, converge)
+  File "Mashup.py", line 122, in label
+    size, maxgens, crossover, mutation, optimum, converge)
+  File "/home/coral/partybot/label/genetic_support.py", line 420, in genetic_labeling
+    verbose, plot)
+  File "/home/coral/partybot/label/genetic_support.py", line 241, in __init__
+    self.population = population or self.genpop()
+  File "/home/coral/partybot/label/genetic_support.py", line 282, in genpop
+    return [Individual(self.mashup) for individual in range(self.size)]
+  File "/home/coral/partybot/label/genetic_support.py", line 26, in __init__
+    self.sequence = sequence or self.genseq()
+  File "/home/coral/partybot/label/genetic_support.py", line 55, in genseq
+    sequence[random.randrange(1, self.length-2)] = 1
+  File "/usr/lib/python2.7/random.py", line 217, in randrange
+    raise ValueError, "empty range for randrange() (%d,%d, %d)" % (istart, istop, width)
+ValueError: empty range for randrange() (1,-2, -3)
