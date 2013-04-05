@@ -158,18 +158,18 @@ class Individual(object):
     #   - Move a random transition left or right
     def mutate(self, cache):
         transitions = self.transitions()
-	if len(transitions) < 1:
-             add, cache = self._add(cache)
-             self.fitness, self.sequence, self.segs = add
-             return cache
-	else:
-             transition = random.choice(transitions)
-             add, cache = self._add(cache)
-             delete, cache = self._delete(transition, cache)
-             move, cache = self._move(transition, random.choice( ("l","r") ), cache)
-             # use optimal mutation
-             self.fitness, self.sequence, self.segs = max(add, delete, move)
-             return cache
+        if len(transitions) < 1:
+            add, cache = self._add(cache)
+            self.fitness, self.sequence, self.segs = add
+            return cache
+        else:
+            transition = random.choice(transitions)
+            add, cache = self._add(cache)
+            delete, cache = self._delete(transition, cache)
+            move, cache = self._move(transition, random.choice( ("l","r") ), cache)
+            # use optimal mutation
+            self.fitness, self.sequence, self.segs = max(add, delete, move)
+            return cache
        
     def _add(self, cache):
         #add to non transition locations
@@ -299,12 +299,12 @@ class Environment(object):
             return self.generation >= self.maxgenerations
 
     def step(self):
-        self.past_average = self.curr_average
         self._crossover()
         self.generation += 1
         self.curr_average = self.get_average()
         if self.verbose: self.report()
         if self.plot: self._plot()
+        self.past_average = self.curr_average
 
     def _crossover(self):
         mates = self._select()

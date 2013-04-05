@@ -1,0 +1,62 @@
+#mutation=0.1
+nohup nice python Mashup.py -fve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-1 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-2 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-3 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-4 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-5 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-6 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-7 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-8 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-9 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.1 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-10-10 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+#mutation=0.2
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-1 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-2 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-3 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-4 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-5 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-6 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-7 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-8 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-9 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.2 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-20-10 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+#mutation=0.3
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-1 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-2 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-3 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-4 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-5 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-6 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-7 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-8 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-9 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
+#
+nohup nice python Mashup.py -ve --label=GA --size=300 --optimum=0.01 --mutation=0.3 --out=scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends-30-10 scripts/mashups/britney-vs-rihanna/only-girl-till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/till-the-world-ends.mp3 scripts/mashups/britney-vs-rihanna/only-girl-in-the-world.mp3
