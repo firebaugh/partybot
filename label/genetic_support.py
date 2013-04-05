@@ -235,6 +235,8 @@ class Individual(object):
         twin.fitness = self.fitness
         return twin
 
+alpha = 0.2
+
 class Environment(object):
     def __init__(self, mashup, population=None, size=100, maxgenerations=100,
             crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, converge=True, 
@@ -254,6 +256,7 @@ class Environment(object):
         self.generation = 0
         self.curr_average = 0
         self.past_average = self.get_average()
+        self.exp_average = self.get_exp_average()
         #user commands for verbose and plot
         self.verbose = verbose
         if plot == True: self.plot = False
@@ -263,14 +266,13 @@ class Environment(object):
             f.write(
 '''# GA for labeling mashup %s
 # size = %d
-# max generations = %d
 # crossover rate = %f
 # mutation rate = %f
 # optimum = %f
-# -----------------------------------------
-# GENERATION   BEST'S FITNESS   AVG FITNESS
+# -------------------------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS   EXP WGT AVG
 '''
-                    % (self.mashup.mashup.mp3_name, self.size, self.maxgenerations,
+                    % (self.mashup.mashup.mp3_name, self.size,
                         self.crossover_rate, self.mutation_rate, self.optimum))
             f.close()
         if self.verbose: self.report()
@@ -283,6 +285,9 @@ class Environment(object):
 
     def get_average(self):
         return np.mean([individual.fitness for individual in self.population])
+
+    def get_exp_average(self):
+        return alpha*self.past_average + (1-alpha)*self.curr_average 
 
     def genpop(self):
         return [Individual(self.mashup) for individual in range(self.size)]
@@ -302,6 +307,7 @@ class Environment(object):
         self._crossover()
         self.generation += 1
         self.curr_average = self.get_average()
+        self.exp_average = self.get_exp_average()
         if self.verbose: self.report()
         if self.plot: self._plot()
         self.past_average = self.curr_average
@@ -403,7 +409,7 @@ class Environment(object):
 
     def _plot(self):
         f = open(self.plot, "a")
-        f.write("%d\t%f\t%f\n" % (self.generation, self.best.fitness, self.curr_average))
+        f.write("%d\t%f\t%f\t%f\n" % (self.generation, self.best.fitness, self.curr_average, self.exp_average))
         f.close()
     
     def _finalize(self):
