@@ -1,0 +1,8 @@
+# GA for labeling mashup boyfriend-girlfriend
+# size = 300
+# crossover rate = 0.900000
+# mutation rate = 0.100000
+# optimum = 0.000000
+# -------------------------------------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS   EXP WGT AVG   TRUE DIST
+1	-64.611360	-67.001250	-67.095457	0.555407
