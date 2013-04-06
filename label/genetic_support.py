@@ -466,6 +466,7 @@ class Environment(object):
         print("generation: %s" % self.generation)
         print("size: %s" % self.size)
         print("mean: %s \n std: %s" % (self._evaluate()))
+        print("ewa: %s" % self.curr_exp_average)
         print("best: %s" % self.best)
 
     def _plot(self):
