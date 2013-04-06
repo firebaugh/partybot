@@ -225,9 +225,15 @@ class Individual(object):
         sequence = self.sequence
         sequence[transition] = 0
         if direction == "l": #LEFT
-            sequence[transition-1] = 1
+            if transition > 1:
+                sequence[transition-1] = 1
+            else: #wrap
+                sequence[len(sequence)-2] = 1
         else: #RIGHT
-            sequence[transition+1] = 1
+            if transition < len(sequence)-3:
+                sequence[transition+1] = 1
+            else: #wrap
+                sequence[1] = 1
         fitness, segs, cache = self._score(sequence, cache)        
         return (fitness, sequence, segs), cache
 
