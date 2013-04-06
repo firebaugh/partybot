@@ -282,8 +282,8 @@ class Environment(object):
         self.mutation_rate = mutation_rate
         self.maxgenerations = maxgenerations
         self.generation = 0
-        self.curr_average = 0
-        self.past_average = self.get_average()
+        self.curr_average = self.get_average()
+        self.past_average = 0
         self.exp_average = self.get_exp_average()
         #user commands for verbose and plot
         self.verbose = verbose
@@ -334,6 +334,7 @@ class Environment(object):
         songs = []
         for i in lines:
             w = i.split(" ")
+            print(w)
             songs.append(w[1])
             for j in range(0,int(w[3])-int(w[2])):
                 sequence.append(0)
@@ -357,11 +358,11 @@ class Environment(object):
     def step(self):
         self._crossover()
         self.generation += 1
+        self.past_average = self.curr_average
         self.curr_average = self.get_average()
         self.exp_average = self.get_exp_average()
         if self.verbose: self.report()
         if self.plot: self._plot()
-        self.past_average = self.curr_average
 
     def _crossover(self):
         mates = self._select()
