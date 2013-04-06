@@ -67,6 +67,34 @@ class Individual(object):
                     last = i+1
         return True
 
+    #Score individual's distance from true transition sequence and song sequence
+    #+1 for mismatch, +0 for match
+    # 1 - ( ((song_dist/#_of_segs) + (sequence_dist/length)) / 2.0 )
+    def true_dist(self, compare):
+        #find min length, so we don't over index
+        if self.length < len(compare[0]): l = self.length
+        else: l = len(compare[0])
+        #distance between binary transition sequences
+        sequence_dist = 0
+        for i in range(l):
+            if compare[0][i] != self.sequence[i]: sequence_dist += 1
+        sequence_dist /= float(l) #avg to keep between 0 and 1
+
+        keys = self.segs.keys()
+        keys.sort()
+        if keys == None: keys = []
+        #find min length, so we don't over index
+        if len(keys) < len(compare[1]): n = len(keys)
+        else: n = len(compare[1])
+        #distance between song segment labels
+        song_dist = 0
+        for i in range(n):
+            if self.segs[keys[i]][0] != compare[1][i]: song_dist += 1
+        song_dist += abs(len(keys) - len(compare[1])) #add any unaccounted for mismatches
+        song_dist /= max([float(len(keys)), float(len(compare[1]))])
+
+        return 1 - ( (sequence_dist+song_dist) / 2.0 )
+
     # Score individuals fitness
     def _evaluate(self, cache):
         fitness, self.segs, cache = self._score(self.sequence, cache)
@@ -240,7 +268,7 @@ alpha = 0.2
 class Environment(object):
     def __init__(self, mashup, population=None, size=100, maxgenerations=100,
             crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, converge=True, 
-            verbose=False, plot=None):
+            verbose=False, plot=None, compare=None):
         #env and pop setup
         self.mashup = mashup
         self.size = size
@@ -259,8 +287,8 @@ class Environment(object):
         self.exp_average = self.get_exp_average()
         #user commands for verbose and plot
         self.verbose = verbose
-        if plot == True: self.plot = False
-        else: self.plot = plot+".dat"
+        if plot: self.plot = plot+".dat"
+        else: self.plot = False
         if self.plot:
             f = open(self.plot, "w")
             f.write(
@@ -269,12 +297,15 @@ class Environment(object):
 # crossover rate = %f
 # mutation rate = %f
 # optimum = %f
-# -------------------------------------------------------
-# GENERATION   BEST'S FITNESS   AVG FITNESS   EXP WGT AVG
+# -------------------------------------------------------------------
+# GENERATION   BEST'S FITNESS   AVG FITNESS   EXP WGT AVG   TRUE DIST
 '''
                     % (self.mashup.mashup.mp3_name, self.size,
                         self.crossover_rate, self.mutation_rate, self.optimum))
             f.close()
+        #compare = [ [binary_transition_sequence], [song_name_sequence] ]
+        if compare: self.compare = self.get_true_segs(compare)
+        else: self.compare = False
         if self.verbose: self.report()
 
     def best():
@@ -288,6 +319,26 @@ class Environment(object):
 
     def get_exp_average(self):
         return alpha*self.past_average + (1-alpha)*self.curr_average 
+
+    def get_true_average(self):
+        return np.mean([individual.true_dist(self.compare) for individual in self.population])
+
+    def get_true_segs(self, compare_file):
+        try:
+            f = open(compare_file, "r")
+            lines = f.readlines()
+            f.close()
+        except:
+            return False
+        sequence = []
+        songs = []
+        for i in lines:
+            w = i.split(" ")
+            songs.append(w[1])
+            for j in range(0,int(w[3])-int(w[2])):
+                sequence.append(0)
+            sequence.append(1)
+        return [sequence, songs]
 
     def genpop(self):
         return [Individual(self.mashup) for individual in range(self.size)]
@@ -409,7 +460,11 @@ class Environment(object):
 
     def _plot(self):
         f = open(self.plot, "a")
-        f.write("%d\t%f\t%f\t%f\n" % (self.generation, self.best.fitness, self.curr_average, self.exp_average))
+        f.write("%d\t%f\t%f\t%f" % (self.generation, self.best.fitness, self.curr_average, self.exp_average))
+        if self.compare:
+            f.write("\t%f\n" % self.get_true_average())
+        else:
+            f.write("\n")
         f.close()
     
     def _finalize(self):
@@ -425,10 +480,10 @@ def feature_distance(n1, n2):
     return distance
 
 
-def genetic_labeling(mashup, verbose=False, plot=None,
+def genetic_labeling(mashup, verbose=False, out=None, compare=None,
         size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0, converge=True):
     env = Environment(mashup, None, size, maxgenerations, 
             crossover_rate, mutation_rate, optimum, converge, 
-            verbose, plot)
+            verbose, out, compare)
     return env.run()
 

@@ -25,7 +25,7 @@ from optparse import OptionParser
 import sys
 from itertools import combinations
 
-from echonest.remix.action import Playback, Jump, Crossfade, Crossmatch, render
+from echonest.action import Playback, Jump, Crossfade, Crossmatch, render
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
 from alignment_support import alignment_labeling
@@ -110,7 +110,7 @@ class Mashup:
         "SA" = sequence alignment
         "GA" = genetic algorithm
     '''
-    def label(self, algorithm="GA", verbose=False, out=None,
+    def label(self, algorithm="GA", verbose=False, out=None, compare=None,
             size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, converge=True):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
@@ -118,7 +118,7 @@ class Mashup:
             return self.labeled
         else:
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
-            self.labeled = genetic_labeling(self, verbose, out, 
+            self.labeled = genetic_labeling(self, verbose, out, compare, 
                     size, maxgens, crossover, mutation, optimum, converge)
             return self.labeled
     
@@ -214,14 +214,15 @@ def main():
     parser.add_option("-x", "--crossmatch", action="store_true", help="crossmatch pairs of source songs")
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
-    parser.add_option("-l", "--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
-    parser.add_option("-s", "--size", dest="size", help="SIZE of GA population", metavar="SIZE")
-    parser.add_option("-g", "--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
-    parser.add_option("-c", "--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")
-    parser.add_option("-m", "--mutation", dest="mutation", help="MUTATION rate for GA", metavar="MUTATION")
-    parser.add_option("-p", "--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
-    parser.add_option("-e", "--converge", action="store_true", help="run GA until convergence rather than max generations GEN")
-    parser.add_option("-o", "--out", dest="out_file", help="write plot of GA's progress to OUT.dat, reconstruction of mashup to OUT-ALGO-reconstructed.mp3, graph of reconstruction to OUT.graph, and corresponding segments of reconstruction to OUT.segs")
+    parser.add_option("--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
+    parser.add_option("--size", dest="size", help="SIZE of GA population", metavar="SIZE")
+    parser.add_option("--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
+    parser.add_option("--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")
+    parser.add_option("--mutation", dest="mutation", help="MUTATION rate for GA", metavar="MUTATION")
+    parser.add_option("--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
+    parser.add_option("-c", "--converge", action="store_true", help="run GA until convergence rather than max generations GEN")
+    parser.add_option("--out", dest="out_file", help="write plot of GA's progress to OUT.dat, reconstruction of mashup to OUT-ALGO-reconstructed.mp3, graph of reconstruction to OUT.graph, and corresponding segments of reconstruction to OUT.segs", metavar="OUT")
+    parser.add_option("--compare", dest="compare_file", help="compare automatically labeled results with hand labeled results in FILE", metavar="FILE")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         print("Enter mashup and source song(s).\n")
@@ -238,6 +239,7 @@ def main():
     verbose = options.verbose
     label = options.algorithm
     out = options.out_file
+    compare = options.compare_file
     converge = options.converge
     #size
     if options.size: size = int(options.size)
@@ -259,7 +261,7 @@ def main():
 
     # LABEL Mashup using sequence alignment or GA
     if label:
-        mashup.label(label, verbose, out, size, maxgens, crossover, mutation, optimum, converge)
+        mashup.label(label, verbose, out, compare, size, maxgens, crossover, mutation, optimum, converge)
         if verbose: print("Completed labeling.")
 
     # REPORT results
