@@ -273,13 +273,14 @@ alpha = 0.2
 
 class Environment(object):
     def __init__(self, mashup, population=None, size=100, maxgenerations=100,
-            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, converge=True, 
-            verbose=False, plot=None, compare=None):
+            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, converge=True,
+            smooth=False, verbose=False, plot=None, compare=None):
         #env and pop setup
         self.mashup = mashup
         self.size = size
         self.optimum = optimum
         self.converge = converge
+        self.smooth = smooth
         self.population = population or self.genpop()
         self.cache = {} #{(mashup_node, source_name, source_node): feature_distance}
         for individual in self.population:
@@ -288,9 +289,10 @@ class Environment(object):
         self.mutation_rate = mutation_rate
         self.maxgenerations = maxgenerations
         self.generation = 0
-        self.curr_average = self.get_average()
         self.past_average = 0
-        self.exp_average = self.get_exp_average()
+        self.curr_average = self.get_average()
+        self.past_exp_average = 0
+        self.curr_exp_average = self.get_exp_average()
         #user commands for verbose and plot
         self.verbose = verbose
         if plot: self.plot = plot+".dat"
@@ -340,7 +342,6 @@ class Environment(object):
         songs = []
         for i in lines:
             w = i.split(" ")
-            print(w)
             songs.append(w[1])
             for j in range(0,int(w[3])-int(w[2])):
                 sequence.append(0)
@@ -357,7 +358,8 @@ class Environment(object):
 
     def _goal(self):
         if self.converge:
-            return abs(self.past_average - self.curr_average) <= self.optimum
+            if self.smooth: return abs(self.past_exp_average - self.curr_exp_average) <= self.optimum
+            else: return abs(self.past_average - self.curr_average) <= self.optimum
         else:
             return self.generation >= self.maxgenerations
 
@@ -366,7 +368,8 @@ class Environment(object):
         self.generation += 1
         self.past_average = self.curr_average
         self.curr_average = self.get_average()
-        self.exp_average = self.get_exp_average()
+        self.past_exp_average = self.curr_exp_average
+        self.curr_exp_average = self.get_exp_average()
         if self.verbose: self.report()
         if self.plot: self._plot()
 
@@ -488,9 +491,9 @@ def feature_distance(n1, n2):
 
 
 def genetic_labeling(mashup, verbose=False, out=None, compare=None,
-        size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0, converge=True):
+        size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0, converge=True, smooth=False):
     env = Environment(mashup, None, size, maxgenerations, 
-            crossover_rate, mutation_rate, optimum, converge, 
+            crossover_rate, mutation_rate, optimum, converge, smooth,
             verbose, out, compare)
     return env.run()
 

@@ -111,7 +111,7 @@ class Mashup:
         "GA" = genetic algorithm
     '''
     def label(self, algorithm="GA", verbose=False, out=None, compare=None,
-            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, converge=True):
+            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, converge=True, smooth=False):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
             self.labeled = alignment_labeling(self, verbose)
@@ -119,7 +119,7 @@ class Mashup:
         else:
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
             self.labeled = genetic_labeling(self, verbose, out, compare, 
-                    size, maxgens, crossover, mutation, optimum, converge)
+                    size, maxgens, crossover, mutation, optimum, converge, smooth)
             return self.labeled
     
     '''
@@ -214,6 +214,7 @@ def main():
     parser.add_option("-x", "--crossmatch", action="store_true", help="crossmatch pairs of source songs")
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
+    parser.add_option("-s", "--smooth", action="store_true", help="converge GA based on exponentially weighted (smoothed) average instead of average.")
     parser.add_option("--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
     parser.add_option("--size", dest="size", help="SIZE of GA population", metavar="SIZE")
     parser.add_option("--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
@@ -241,6 +242,7 @@ def main():
     out = options.out_file
     compare = options.compare_file
     converge = options.converge
+    smooth = options.smooth
     #size
     if options.size: size = int(options.size)
     else: size = 300
@@ -261,7 +263,7 @@ def main():
 
     # LABEL Mashup using sequence alignment or GA
     if label:
-        mashup.label(label, verbose, out, compare, size, maxgens, crossover, mutation, optimum, converge)
+        mashup.label(label, verbose, out, compare, size, maxgens, crossover, mutation, optimum, converge, smooth)
         if verbose: print("Completed labeling.")
 
     # REPORT results
