@@ -470,7 +470,7 @@ class Environment(object):
 
     def _plot(self):
         f = open(self.plot, "a")
-        f.write("%d\t%f\t%f\t%f" % (self.generation, self.best.fitness, self.curr_average, self.exp_average))
+        f.write("%d\t%f\t%f\t%f" % (self.generation, self.best.fitness, self.curr_average, self.curr_exp_average))
         if self.compare:
             f.write("\t%f\n" % self.get_true_average())
         else:
