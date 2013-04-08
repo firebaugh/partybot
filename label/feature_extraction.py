@@ -55,7 +55,7 @@ def main():
         f = open(filename, "w")
         # timbre_mean, timbre_std, timbre_var, timbre_skew, timbre_kurtosis,
         # pitch_mean, pitch_std, pitch_var, pitch_skew, pitch_kurtosis
-        f.write(' '.join([str(np.mean(timbre)), str(np.std(timbre)), str(np.var(timbre)), str(sp.skew(timbre)), str(sp.kurtosis(timbre)), str(np.mean(pitch)), str(np.std(pitch)), str(np.var(pitch)), str(sp.skew(pitch)), str(sp.kurtosis(pitch))]))
+        f.write(','.join([str(np.mean(timbre)), str(np.std(timbre)), str(np.var(timbre)), str(sp.skew(timbre)), str(sp.kurtosis(timbre)), str(np.mean(pitch)), str(np.std(pitch)), str(np.var(pitch)), str(sp.skew(pitch)), str(sp.kurtosis(pitch))]))
         f.close()
         if verbose: print("Completed feature extraction for %s" % s.mp3_name)
 

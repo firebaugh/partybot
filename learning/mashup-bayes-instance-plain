@@ -1,0 +1,29 @@
+Tester:     weka.experiment.PairedCorrectedTTester
+Analysing:  Percent_correct
+Datasets:   1
+Resultsets: 9
+Confidence: 0.05 (two tailed)
+Sorted by:  -
+Date:       4/8/13 2:46 PM
+
+
+Dataset                   (1) meta.Fil | (2) meta. (3) meta. (4) meta. (5) meta. (6) meta. (7) meta. (8) meta. (9) meta.
+------------------------------------------------------------------------------------------------------------------------
+transition               (100)   92.52 |   92.23     93.98     94.53     95.02     95.23     95.94 v   96.57 v   97.39 v
+------------------------------------------------------------------------------------------------------------------------
+Average                          92.52 |   92.23     93.98     94.53     95.02     95.23     95.94     96.57     97.39  
+------------------------------------------------------------------------------------------------------------------------
+                               (v/ /*) |   (0/1/0)   (0/1/0)   (0/1/0)   (0/1/0)   (0/1/0)   (1/0/0)   (1/0/0)   (1/0/0)
+
+
+Key:
+(1) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 90.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(2) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 80.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(3) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 70.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(4) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 60.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(5) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 50.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(6) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 40.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(7) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 30.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(8) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 20.0\" -W bayes.NaiveBayes --' -4523450618538717400
+(9) meta.FilteredClassifier '-F \"unsupervised.instance.RemovePercentage -P 10.0\" -W bayes.NaiveBayes --' -4523450618538717400
+

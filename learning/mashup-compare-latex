@@ -1,0 +1,39 @@
+Tester:     weka.experiment.PairedCorrectedTTester
+Analysing:  Percent_correct
+Datasets:   1
+Resultsets: 4
+Confidence: 0.05 (two tailed)
+Sorted by:  -
+Date:       4/8/13 1:44 PM
+
+
+\begin{table}[thb]
+\caption{\label{labelname}Table Caption}
+\footnotesize
+{\centering \begin{tabular}{lrr@{\hspace{0.1cm}}cr@{\hspace{0.1cm}}cr@{\hspace{0.1cm}}c}
+\\
+\hline
+Dataset & (1)& (2) & & (3) & & (4) & \\
+\hline
+transition & 95.86 & 98.54 & $\circ$ & 98.54 & $\circ$ & 98.54 & $\circ$\\
+\hline
+Average & 95.86 & 98.54 &         & 98.54 &         & 98.54 &        \\
+\hline
+\multicolumn{8}{c}{$\circ$, $\bullet$ statistically significant improvement or degradation}\\
+\end{tabular} \footnotesize \par}
+\end{table}
+
+
+\begin{table}[thb]
+\caption{\label{labelname}Table Caption (Key)}
+\scriptsize
+{\centering
+\begin{tabular}{cl}\\
+(1) & bayes.NaiveBayes '' 5995231201785697655 \\
+(2) & functions.SMO '-C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K \textbackslash"functions.supportVector.PolyKernel -C 250007 -E 1.0\textbackslash"' -6585883636378691736 \\
+(3) & functions.VotedPerceptron '-I 10 -E 1.0 -S 1 -M 10000' -1072429260104568698 \\
+(4) & trees.J48 '-R -N 10 -Q 1 -M 2' -217733168393644444 \\
+\end{tabular}
+}
+\end{table}
+
