@@ -13,7 +13,7 @@ import random
 
 class Individual(object):
     
-    def __init__(self, mashup, sequence=None):
+    def __init__(self, mashup, restrict=0, sequence=None):
         self.mashup = mashup
         self.length = mashup.mashup.graph.number_of_nodes()
         self.max_source = 0
@@ -23,7 +23,8 @@ class Individual(object):
                 self.min_source = source.graph.number_of_nodes()
             if source.graph.number_of_nodes() > self.max_source:
                 self.max_source = source.graph.number_of_nodes()
-        self.sequence = sequence or self.genseq()
+        self.restrict = restrict
+        self.sequence = sequence or self.genseq(self.restrict)
         self.fitness = None
         self.rank = None
         self.segs = None
@@ -47,11 +48,11 @@ class Individual(object):
     def genseq(self, n=0):
         #select enough transitions to spread source songs
         N = int(self.length/self.min_source) + 1
-        if N < n: N = n
+        if n < N: n = N
         sustain = False
         while sustain == False:
             sequence = [0] * (self.length)
-            for i in range(N):
+            for i in range(n):
                 sequence[random.randrange(1, self.length-2)] = 1
             #make sure some source song can align to the segments
             sustain = self.is_sustainable(sequence)
@@ -66,34 +67,6 @@ class Individual(object):
                 else:
                     last = i+1
         return True
-
-    #Score individual's distance from true transition sequence and song sequence
-    #+1 for mismatch, +0 for match
-    # 1 - ( ((song_dist/#_of_segs) + (sequence_dist/length)) / 2.0 )
-    def true_dist(self, compare):
-        #find min length, so we don't over index
-        if self.length < len(compare[0]): l = self.length
-        else: l = len(compare[0])
-        #distance between binary transition sequences
-        sequence_dist = 0
-        for i in range(l):
-            if compare[0][i] != self.sequence[i]: sequence_dist += 1
-        sequence_dist /= float(l) #avg to keep between 0 and 1
-
-        keys = self.segs.keys()
-        keys.sort()
-        if keys == None: keys = []
-        #find min length, so we don't over index
-        if len(keys) < len(compare[1]): n = len(keys)
-        else: n = len(compare[1])
-        #distance between song segment labels
-        song_dist = 0
-        for i in range(n):
-            if self.segs[keys[i]][0] != compare[1][i]: song_dist += 1
-        song_dist += abs(len(keys) - len(compare[1])) #add any unaccounted for mismatches
-        song_dist /= max([float(len(keys)), float(len(compare[1]))])
-
-        return 1 - ( (sequence_dist+song_dist) / 2.0 )
 
     # Score individuals fitness
     def _evaluate(self, cache):
@@ -159,8 +132,8 @@ class Individual(object):
         def mate(p0, p1):
             sequence = p0.sequence[:]
             sequence[left:right] = p1.sequence[left:right]
-            child = p0.__class__(self.mashup,sequence)
-            child._repair(p0,p1)
+            child = p0.__class__(self.mashup,self.restrict,sequence)
+            child._repair()
             return child
         # only returns sustainable offspring
         while True:
@@ -174,9 +147,31 @@ class Individual(object):
         right = random.randrange(left, self.length-1)
         return left, right
     
-    #TODO fix duplicated sequences
-    def _repair(self, p0, p1):
-        pass
+    # restrict # of transitions by self.restrict
+    # NOTE need restrict to be sustainable; otherwise, run forever!
+    def _repair(self):
+        trans = self.transitions()
+        diff = len(trans) - self.restrict
+        sequence = self.sequence
+        # too many
+        if diff > 0:
+            for d in range(diff):
+                rand = random.choice(trans)
+                sequence[rand] = 0
+                while self.is_sustainable(sequence) == False:
+                    sequence[rand] = 1 # replace
+                    rand = rand.choice(trans) # choose another
+                    sequence[rand] = 0
+        #too few
+        elif diff < 0:
+            cont = [i for i in range(len(self.sequence))]
+            for t in trans: cont.remove(t)
+            for d in range(-1*diff):
+                rand = random.choice(cont)
+                sequence[rand] = 1
+
+        self.sequence = sequence
+        return sequence
 
     # Pick a uniformly random transition to mutate
     # Add will always be sustainable
@@ -265,7 +260,7 @@ class Individual(object):
         return cmp(other.fitness, self.fitness)
 
     def copy(self):
-        twin = self.__class__(self.mashup,self.sequence[:])
+        twin = self.__class__(self.mashup,self.restrict,self.sequence[:])
         twin.fitness = self.fitness
         return twin
 
@@ -273,15 +268,16 @@ alpha = 0.2
 
 class Environment(object):
     def __init__(self, mashup, population=None, size=100, maxgenerations=100,
-            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0, converge=True,
-            smooth=False, verbose=False, plot=None, compare=None):
+            crossover_rate=0.90, mutation_rate=0.01, optimum=0.0,
+            restrict=0, converge=True, smooth=False, verbose=False, plot=None):
         #env and pop setup
         self.mashup = mashup
         self.size = size
         self.optimum = optimum
+        self.restrict = restrict
         self.converge = converge
         self.smooth = smooth
-        self.population = population or self.genpop()
+        self.population = population or self.genpop() #NOTE use restricted unless too small
         self.cache = {} #{(mashup_node, source_name, source_node): feature_distance}
         for individual in self.population:
             self.cache = individual._evaluate(self.cache)
@@ -305,15 +301,12 @@ class Environment(object):
 # crossover rate = %f
 # mutation rate = %f
 # optimum = %f
-# -------------------------------------------------------------------
-# GENERATION   BEST'S FITNESS   AVG FITNESS   EXP WGT AVG   TRUE DIST
+# ------------------------------------------
+# GEN BEST_FITNESS AVG_FITNESS WEIGHTED_AVG
 '''
                     % (self.mashup.mashup.mp3_name, self.size,
                         self.crossover_rate, self.mutation_rate, self.optimum))
             f.close()
-        #compare = [ [binary_transition_sequence], [song_name_sequence] ]
-        if compare: self.compare = self.get_true_segs(compare)
-        else: self.compare = False
         if self.verbose: self.report()
 
     def best():
@@ -328,28 +321,8 @@ class Environment(object):
     def get_exp_average(self):
         return alpha*self.past_average + (1-alpha)*self.curr_average 
 
-    def get_true_average(self):
-        return np.mean([individual.true_dist(self.compare) for individual in self.population])
-
-    def get_true_segs(self, compare_file):
-        try:
-            f = open(compare_file, "r")
-            lines = f.readlines()
-            f.close()
-        except:
-            return False
-        sequence = []
-        songs = []
-        for i in lines:
-            w = i.split(" ")
-            songs.append(w[1])
-            for j in range(0,int(w[3])-int(w[2])):
-                sequence.append(0)
-            sequence.append(1)
-        return [sequence, songs]
-
     def genpop(self):
-        return [Individual(self.mashup) for individual in range(self.size)]
+        return [Individual(self.mashup,self.restrict) for individual in range(self.size)]
 
     def run(self):
         while not self._goal():
@@ -365,33 +338,37 @@ class Environment(object):
 
     def step(self):
         self._crossover()
+        # update vars
         self.generation += 1
         self.past_average = self.curr_average
         self.curr_average = self.get_average()
         self.past_exp_average = self.curr_exp_average
         self.curr_exp_average = self.get_exp_average()
+        # report results
         if self.verbose: self.report()
         if self.plot: self._plot()
 
     def _crossover(self):
         mates = self._select()
-        #if mate pool < third of pop size, randomize
-        #while len(set(mates)) < self.size/2:
-        #    mates = self._randomize(mates)
         next_population = [self.best.copy()]
         while len(next_population) < self.size:
             index = random.randrange(len(mates))
             mate1 = mates[index]
+            #crossover
             if random.random() < self.crossover_rate:
                 mate2 = random.choice(mates) 
-                #while mate2 == mate1:
-                #    mate2 = random.choice(mates) #TODO is this right?
                 offspring = mate1.crossover(mate2)
+                if self.restrict: #NOTE restricting transitions
+                    for individual in offspring:
+                        individual._repair()
             else:
                 offspring = [mate1.copy()]
+            #mutate
             for individual in offspring:
-                self._mutate(individual)
+                if self.restrict: self.restricted_mutate(individual) #NOTE restricting transitions (just move operator)
+                else: self._mutate(individual)
                 next_population.append(individual)
+        
         # add new pop to old pop, sort, then cut off at pop max size
         self.population += next_population
         for individual in self.population:
@@ -449,6 +426,14 @@ class Environment(object):
         if random.random() < self.mutation_rate:
             self.cache = individual.mutate(self.cache)
 
+    # mutate with move operation only; for restricted crossover
+    def restricted_mutate(self, individual):
+        if random.random() < self.mutation_rate:
+            transition = random.choice(individual.transitions())
+            direction= random.choice( ("l","r") )
+            move, self.cache = individual._move(transition, direction, self.cache)
+            individual.fitness, individual.sequence, individual.segs = move
+
     #randomize the population
     #leave best
     #use same # of transitions
@@ -471,11 +456,7 @@ class Environment(object):
 
     def _plot(self):
         f = open(self.plot, "a")
-        f.write("%d\t%f\t%f\t%f" % (self.generation, self.best.fitness, self.curr_average, self.curr_exp_average))
-        if self.compare:
-            f.write("\t%f\n" % self.get_true_average())
-        else:
-            f.write("\n")
+        f.write("%d\t%f\t%f\t%f\n" % (self.generation, self.best.fitness, self.curr_average, self.curr_exp_average))
         f.close()
     
     def _finalize(self):
@@ -491,10 +472,11 @@ def feature_distance(n1, n2):
     return distance
 
 
-def genetic_labeling(mashup, verbose=False, out=None, compare=None,
-        size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0, converge=True, smooth=False):
+def genetic_labeling(mashup, verbose=False, out=None,
+        size=300, maxgenerations=10, crossover_rate=0.9, mutation_rate=0.2, optimum=0.0,
+        restrict=0, converge=True, smooth=False):
     env = Environment(mashup, None, size, maxgenerations, 
-            crossover_rate, mutation_rate, optimum, converge, smooth,
-            verbose, out, compare)
+            crossover_rate, mutation_rate, optimum,
+            restrict, converge, smooth, verbose, out)
     return env.run()
 

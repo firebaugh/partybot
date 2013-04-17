@@ -110,16 +110,18 @@ class Mashup:
         "SA" = sequence alignment
         "GA" = genetic algorithm
     '''
-    def label(self, algorithm="GA", verbose=False, out=None, compare=None,
-            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, converge=True, smooth=False):
+    def label(self, algorithm="GA", verbose=False, out=None,
+            size=300, maxgens=100, crossover=0.9, mutation=0.1, optimum=0.0, 
+            restrict=False, converge=True, smooth=False):
         if algorithm == "SA":
             if verbose: print("Labeling %s using sequence alignment..." % self.mashup.mp3_name)
             self.labeled = alignment_labeling(self, verbose)
             return self.labeled
         else:
             if verbose: print("Labeling %s using genetic algorithm..." % self.mashup.mp3_name)
-            self.labeled = genetic_labeling(self, verbose, out, compare, 
-                    size, maxgens, crossover, mutation, optimum, converge, smooth)
+            self.labeled = genetic_labeling(self, verbose, out, 
+                    size, maxgens, crossover, mutation, optimum,
+                    restrict, converge, smooth)
             return self.labeled
     
     '''
@@ -215,15 +217,15 @@ def main():
     parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")
     parser.add_option("-f", "--force", action="store_true", help="force recompute graph")
     parser.add_option("-s", "--smooth", action="store_true", help="converge GA based on exponentially weighted (smoothed) average instead of average.")
+    parser.add_option("-c", "--converge", action="store_true", help="run GA until convergence rather than max generations GEN")
+    parser.add_option("--restrict", dest="restriction", default=False, help="GA is restricted to aligning with N transitions", metavar="N")
     parser.add_option("--label", dest="algorithm", help="label mashup using ALGO: 'SA' for sequence alignment or 'GA' for genetic algorithm", metavar="ALGO")
     parser.add_option("--size", dest="size", help="SIZE of GA population", metavar="SIZE")
     parser.add_option("--maxgens", dest="maxgens", help="max number of GENS for GA to run", metavar="GENS")
     parser.add_option("--crossover", dest="crossover", help="CROSSOVER rate for GA", metavar="CROSSOVER")
     parser.add_option("--mutation", dest="mutation", help="MUTATION rate for GA", metavar="MUTATION")
     parser.add_option("--optimum", dest="optimum", help="OPTIMUM for GA", metavar="OPTIMUM")
-    parser.add_option("-c", "--converge", action="store_true", help="run GA until convergence rather than max generations GEN")
     parser.add_option("--out", dest="out_file", help="write plot of GA's progress to OUT.dat, reconstruction of mashup to OUT-ALGO-reconstructed.mp3, graph of reconstruction to OUT.graph, and corresponding segments of reconstruction to OUT.segs", metavar="OUT")
-    parser.add_option("--compare", dest="compare_file", help="compare automatically labeled results with hand labeled results in FILE", metavar="FILE")
     (options, args) = parser.parse_args()
     if len(args) < 1:
         print("Enter mashup and source song(s).\n")
@@ -240,9 +242,11 @@ def main():
     verbose = options.verbose
     label = options.algorithm
     out = options.out_file
-    compare = options.compare_file
     converge = options.converge
     smooth = options.smooth
+    #transition restriction
+    if options.restriction: restrict = int(options.restriction)
+    else: restrict = 0
     #size
     if options.size: size = int(options.size)
     else: size = 300
@@ -263,11 +267,17 @@ def main():
 
     # LABEL Mashup using sequence alignment or GA
     if label:
-        mashup.label(label, verbose, out, compare, size, maxgens, crossover, mutation, optimum, converge, smooth)
+        mashup.label(label, verbose, out, size, maxgens, crossover, mutation, optimum, restrict, converge, smooth)
         if verbose: print("Completed labeling.")
+    
+    # PRINT labeled graph
+    '''if verbose:
+        print("LABELED GRAPH FOR MASHUP: %s" % mashup.mashup.mp3_name)
+        for n,d in mashup.labeled.nodes_iter(data=True):
+            print(n,d)'''
 
     # REPORT results
-    if out:
+    if label == "GA" & out:
         if verbose: print("Sending out email notification...")
         email(out+'.dat')
     
