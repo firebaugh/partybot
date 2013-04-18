@@ -25,7 +25,7 @@ from optparse import OptionParser
 import sys
 from itertools import combinations
 
-from echonest.action import Playback, Jump, Crossfade, Crossmatch, render
+from echonest.remix.action import Playback, Jump, Crossfade, Crossmatch, render
 # from echonest.cloud_support import AnalyzedAudioFile
 from Song import Song
 from alignment_support import alignment_labeling
@@ -277,7 +277,7 @@ def main():
             print(n,d)'''
 
     # REPORT results
-    if label == "GA" & out:
+    if label == "GA" and out:
         if verbose: print("Sending out email notification...")
         email(out+'.dat')
     
